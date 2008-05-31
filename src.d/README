@@ -1,0 +1,12 @@
+Saved files format:
+/scsi/www/backup_system/userid/files/FileName.d/date-Filename
+
+Permissions:
+/scsi/www/backup_system/data drwx------
+
+Sample /etc/crontab entries:
+# Remove deleted files from /usr/local/www/backup_system.
+# Run command at 12 AM.
+0	0	*	*	*	root	/usr/local/shell/bcksys_delete.sh
+
+Only an administrator can clear a user's password. To do so, remove the file /path/to/backup_system/data/passwd.userid.

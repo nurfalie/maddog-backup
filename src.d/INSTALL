@@ -1,0 +1,28 @@
+Mad Dog Backup System's was tested successfully on Alpha FreeBSD 4.11 and
+Alpha FreeBSD 5.4 using gcc versions 2.95.4 20020320 and 3.4.2 20040728.
+
+As of 11/21/2007, Mad Dog Backup System was also successfully deployed
+on Debian Sparc64 using gcc version 4.1.2 20061115.
+
+1.  Installation requires Perl. Please determine where Perl resides on your
+    system and modify the install.pl and upload_script.pl files accordingly.
+2.  Modify the USERS.dat file.
+3.  Please run the install.pl script from Mad Dog Backup System's
+    source directory.
+4.  If you would like deleted files to be removed by the system,
+    please copy and modify the bcksys_delete.sh script as well as your
+    system's crontab file.
+5.  You may use the bcksys_tmp_removal.sh script to automatically
+    log out users after a period of time. You'll also have to modify
+    your system's crontab file.
+6.  Modify the index.sample.html file, rename it to index.html, and
+    place it in Mad Dog Backup System's home directory.
+7.  Modify the Makefile accordingly.
+8.  Modify the variable upload_dir in the upload_script.pl file accordingly.
+9.  Run make and make install.
+10. Create a symbolic link in the directory where the backup.d directory
+    resides that points to either /scsi/www/backup_system or the directory that
+    contains the saved files.
+11  You should remove Indexes from the <Directory DocumentRoot> section of
+    the httpd.conf file.
+12. Test.

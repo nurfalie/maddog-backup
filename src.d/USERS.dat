@@ -1,0 +1,8 @@
+/*
+** Please do not remove the admin user.
+*/
+
+char *users[] = {
+	"admin",
+	"user"
+};
