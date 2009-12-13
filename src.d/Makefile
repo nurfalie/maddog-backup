@@ -6,7 +6,7 @@ standard:	add_file \
 		delete_files \
 		display_files
 
-include ./Makefile.tmp
+-include ./Makefile.tmp
 
 OPTIONS		=	-Wall -pedantic $(LDEFINES)
 GCC		=	gcc

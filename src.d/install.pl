@@ -53,7 +53,7 @@ if(!chdir($rundir = $val))
 
 # Determine where the cgi files will reside.
 
-$val = $cgidir = getcwd();
+$val = $cgidir = "/usr/lib/cgi-bin/maddog-backup.d";
 
 do
   {
@@ -76,7 +76,7 @@ $cgidir = $val;
 
 # Determine the backup directory.
 
-$val = $backupdir = "/scsi/www/backup_system";
+$val = $backupdir = "/var/www/maddog-backup.d";
 
 do
   {
@@ -99,7 +99,7 @@ $backupdir = $val;
 
 # Determine the owner and the group.
 
-$val = $usernam = "www";
+$val = $usernam = "www-data";
 
 do
   {
@@ -120,7 +120,7 @@ while(!getpwnam($val));
 
 $usernam = $val;
 
-$val = $groupnam = "www";
+$val = $groupnam = "www-data";
 
 do
   {
@@ -205,7 +205,7 @@ foreach $dir (@dirs)
 
 # Determine the cgi URL.
 
-$cgiurl = "https://193.168.0.5/cgi-bin/backup";
+$cgiurl = "https://193.168.0.5/cgi-bin/maddog-backup.d";
 
 do
   {
@@ -223,7 +223,7 @@ $cgiurl = $val;
 
 # Determine the home URL.
 
-$homeurl = "https://193.168.0.5/~myaccount/backup.d";
+$homeurl = "https://193.168.0.5/maddog-backup.d";
 
 do
   {
