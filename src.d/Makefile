@@ -52,5 +52,8 @@ clean:
 	rm -f display_files
 	rm -f *.cgi
 
+distclean: clean
+	rm -f Makefile.tmp
+
 purge:
 	rm -f *~
