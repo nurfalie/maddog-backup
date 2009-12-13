@@ -10,9 +10,9 @@ on Debian Sparc64 using gcc version 4.1.2 20061115.
 3.  Please run the install.pl script from Mad Dog Backup System's
     source directory.
 4.  If you would like deleted files to be removed by the system,
-    please copy and modify the bcksys_delete.sh script as well as your
+    please copy and modify the maddog_backup_delete.sh script as well as your
     system's crontab file.
-5.  You may use the bcksys_tmp_removal.sh script to automatically
+5.  You may use the maddog_backup_tmp_removal.sh script to automatically
     log out users after a period of time. You'll also have to modify
     your system's crontab file.
 6.  Modify the index.sample.html file, rename it to index.html, and
