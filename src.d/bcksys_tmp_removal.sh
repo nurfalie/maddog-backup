@@ -3,4 +3,4 @@
 
 # If a file is older than 24 hours, remove it.
 
-/usr/bin/find /scsi/www/backup_system/data -mtime +1 -name "bcksys.*" -exec /bin/rm {} \;
+/usr/bin/find /var/www/maddog-backup.d/data -mtime +1 -name "bcksys.*" -exec /bin/rm {} \;

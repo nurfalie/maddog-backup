@@ -44,12 +44,12 @@ int main(int argc, char *argv[])
 	{
 	  (void) printf("<meta http-equiv=\"refresh\" "
 			"content=\"5; url="
-			"/cgi-bin/backup/display_files.cgi?%s&%d\">",
-			argv[1], SORTBY_NAME);
+			"%s/display_files.cgi?%s&%d\">",
+			CGI_DIR, argv[1], SORTBY_NAME);
 	  (void) printf("It appears that you are already logged in. "
-			"Please wait to be <a href=\"%s%s&%d\">"
+			"Please wait to be <a href=\"%s/display_files.cgi?%s&%d\">"
 			"redirected</a>.",
-			"/cgi-bin/backup/display_files.cgi?", argv[1],
+			CGI_DIR, argv[1],
 			SORTBY_NAME);
 	}
       else
@@ -140,8 +140,8 @@ static void passwdInit(const int new_id, const char *userid)
   (void) printf("</tr>\n");
   (void) printf("<tr>\n");
   (void) printf("<td bgcolor=\"beige\">\n");
-  (void) printf("<form action=\"/cgi-bin/backup/display_files.cgi?%s&%d\" "
-		"method=\"post\">\n", userid, SORTBY_NAME);
+  (void) printf("<form action=\"%s/display_files.cgi?%s&%d\" "
+		"method=\"post\">\n", CGI_DIR, userid, SORTBY_NAME);
   (void) printf("Password<br><input type=\"password\" size=32 maxlength=32 "
 		"name=\"pass\" value=\"\"><br>\n");
 

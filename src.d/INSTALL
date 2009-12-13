@@ -21,7 +21,7 @@ on Debian Sparc64 using gcc version 4.1.2 20061115.
 8.  Modify the variable upload_dir in the upload_script.pl file accordingly.
 9.  Run make and make install.
 10. Create a symbolic link in the directory where the backup.d directory
-    resides that points to either /scsi/www/backup_system or the directory that
+    resides that points to either /var/www/maddog-backup.d or the directory that
     contains the saved files.
 11  You should remove Indexes from the <Directory DocumentRoot> section of
     the httpd.conf file.

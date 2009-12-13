@@ -34,8 +34,8 @@ int main(int argc, char *argv[])
   if(argc > 1 && argv[1] != NULL)
     {
       (void) printf("<meta http-equiv=\"refresh\" "
-		    "content=\"5; url=/cgi-bin/backup/display_files.cgi?"
-		    "%s&%d\">", argv[1], SORTBY_NAME);
+		    "content=\"5; url=%s/display_files.cgi?"
+		    "%s&%d\">", CGI_DIR, argv[1], SORTBY_NAME);
 
       if(fgets(indata, (int) sizeof(indata) - 1, stdin) != NULL)
 	{
@@ -77,15 +77,15 @@ int main(int argc, char *argv[])
 
 	  (void) printf("Your file(s) has(have) been scheduled for deletion. "
 			"Please wait to be "
-			"<a href=\"/cgi-bin/backup/display_files.cgi?%s&%d"
-			"\">redirected</a>.", argv[1], SORTBY_NAME);
+			"<a href=\"%s/display_files.cgi?%s&%d"
+			"\">redirected</a>.", CGI_DIR, argv[1], SORTBY_NAME);
 			
 	}
       else
 	(void) printf("You have not selected any files to be deleted. "
 		      "Please wait to be "
-		      "<a href=\"/cgi-bin/backup/display_files.cgi?%s&%d\">"
-		      "redirected</a>.", argv[1], SORTBY_NAME);
+		      "<a href=\"%s/display_files.cgi?%s&%d\">"
+		      "redirected</a>.", CGI_DIR, argv[1], SORTBY_NAME);
     }
   else
     (void) printf(ERROR, __LINE__, __FILE__, HOME);
