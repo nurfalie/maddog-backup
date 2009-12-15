@@ -220,8 +220,8 @@ void displayFiles(const char *userid, const int sortby)
     }
 
   (void) printf("<form name=\"mainform\" ");
-  (void) printf("action=\"/cgi-bin/backup/delete_files.cgi?%s\" "
-		"method=\"post\">", userid);
+  (void) printf("action=\"%s/delete_files.cgi?%s\" "
+		"method=\"post\">", CGI_DIR, userid);
 
   /*
   ** Create and populate the table.
