@@ -343,7 +343,7 @@ while(($str = <INPUT>))
 		      }
 		    else
 		      {
-			printf("Change permissions for %s.\n", $userdir);
+			printf("Changed permissions for %s.\n", $userdir);
 		      }
 		  }
 		else
