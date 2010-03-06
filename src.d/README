@@ -7,6 +7,6 @@ Permissions:
 Sample /etc/crontab entries:
 # Remove deleted files from /var/www/maddog-backup.d.
 # Run command at 12 AM.
-0	0	*	*	*	root	/usr/local/shell/bcksys_delete.sh
+0	0	*	*	*	root	/usr/local/bin/maddog_backup_delete.sh
 
 Only an administrator can clear a user's password. To do so, remove the file /var/www/maddog-backup.d/data/passwd.userid.
