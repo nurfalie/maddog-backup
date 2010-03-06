@@ -41,13 +41,12 @@ int main(int argc, char *argv[])
 		    CGI_DIR);
       (void) printf("<input type=hidden value=\"%s\" name=\"userid\">",
 		    argv[1]);
-      (void) printf("<b>Step 1:</b> Press the <b>Browse</b> "
+      (void) printf("<b>Step 1: </b>Press the <b>Browse</b> "
 		    "button to select a file.<br>"
 		    "<center><input type=\"file\" "
 		    "size=64 name=\"uploaded\"></center>");
-      (void) printf("<b>Step 2:</b> Select the file you wish "
-		    "to save the new file under, or New File for a "
-		    "new file.<br>");
+      (void) printf("<b>Step 2: </b>Select the directory that you wish "
+		    "to save the file under.<br>");
       (void) printf("<center><select name=\"files\" size=1 single>\n");
       (void) printf("<option>New File</option>\n");
 
@@ -85,10 +84,10 @@ int main(int argc, char *argv[])
 	}
 
       (void) printf("</select></center>\n");
-      (void) printf("<b>Step 3:</b> Press the <b>Save</b> button to "
+      (void) printf("<b>Step 3: </b>Press the <b>Upload</b> button to "
 		    "upload the file.");
       (void) printf("<center>");
-      (void) printf("<input type=\"submit\" value=\"Save\"></form>");
+      (void) printf("<input type=\"submit\" value=\"Upload\"></form>");
       (void) printf("</center>");
       (void) printf("</td>\n");
       (void) printf("</tr>\n");
