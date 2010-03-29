@@ -22,6 +22,7 @@ on Debian Sparc64 using gcc version 4.1.2 20061115.
 9.  Run make and make install.
 10. If desired, the directory /var/www/maddog-backup.d may be configured as
     a symbolic link.
-11  You should remove Indexes from the <Directory DocumentRoot> section of
-    the httpd.conf file.
-12. Test.
+11  You should remove Indexes from the <Directory DocumentRoot>.
+12. Upload.pm should be installed under Perl's CGI sub-directory.
+13. ZIP should be installed.
+14. Test.
