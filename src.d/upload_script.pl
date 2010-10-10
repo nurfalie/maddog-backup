@@ -53,7 +53,6 @@ if($file_name)
       }
 
     my $SIZE = 7;
-    my $file_size = 0;
     my $file_handle = $upload->file_handle("uploaded");
     open(UPLOADFILE, ">" . $datetime . $file_name);
 
