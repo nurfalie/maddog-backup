@@ -15,14 +15,16 @@
 
 int main(int argc, char *argv[])
 {
+  int set = 1;
   int sortby = SORTBY_NAME;
-  char set = 1;
+  char one[] = "1";
   char *tmp1 = NULL;
   char *tmp2 = NULL;
   char indata[128];
   char buffer[BUFF_SIZE];
   char deldir[BUFF_SIZE + strlen("deleted")];
   char *userid = NULL;
+  char unknown[] = "UNKNOWN";
   FILE *fp = NULL;
   mode_t mode;
 
@@ -35,13 +37,13 @@ int main(int argc, char *argv[])
       if((tmp1 = strtok(argv[1], "\\&")) != NULL)
 	userid = tmp1;
       else
-	userid = "UNKNOWN";
+	userid = unknown;
 
       if((tmp1 = strtok(NULL, "\\&")) != NULL)
 	sortby = atoi(tmp1);
     }
   else
-    userid = "UNKNOWN";
+    userid = unknown;
 
   if(argc > 1 && argv[1] != NULL && strcmp(argv[1], "admin") != 0)
     {
@@ -64,7 +66,7 @@ int main(int argc, char *argv[])
   if(argc > 1 && argv[1] != NULL)
     {
       if((tmp1 = getenv("REMOTE_ADDR")) == NULL)
-	tmp1 = "1";
+	tmp1 = one;
 
       (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s."
 		      "%s", BACKUP_DIR, argv[1], tmp1);
@@ -146,11 +148,12 @@ int main(int argc, char *argv[])
 		  ** Create the files and deleted directories.
 		  */
 
-		  mode = PERMISSIONS;
+		  mode = (mode_t) PERMISSIONS;
 		  (void) umask(~mode);
 		  (void) snprintf(buffer, sizeof(buffer), "%s/%s/files",
 				  BACKUP_DIR, argv[1]);
-		  (void) snprintf(deldir, sizeof(deldir), "%s/%s/files/deleted",
+		  (void) snprintf(deldir, sizeof(deldir),
+				  "%s/%s/files/deleted",
 				  BACKUP_DIR, argv[1]);
 
 		  if(mkdir(buffer, mode) != 0 && errno != EEXIST)
