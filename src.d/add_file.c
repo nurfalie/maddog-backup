@@ -77,7 +77,8 @@ int main(int argc, char *argv[])
 			break;
 		      }
 
-		(void) closedir(dirp2);
+		if(dirp2 != NULL)
+		  (void) closedir(dirp2);
 	      }
 
 	  (void) closedir(dirp1);
