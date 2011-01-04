@@ -86,7 +86,7 @@ struct file_info
   char dirname[_POSIX_PATH_MAX];
   char shortname[_POSIX_PATH_MAX];
   char location[BUFF_SIZE];
-  short deleted;
+  int deleted;
   off_t size;
   time_t date;
 };
@@ -123,7 +123,8 @@ void displayFiles(const char *userid, const int sortby)
 
   (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s.%s",
 		  BACKUP_DIR, userid, tmp);
-  (void) fchmod(creat(buffer, O_CREAT | O_TRUNC), S_IRUSR | S_IWUSR);
+  (void) fchmod(creat(buffer, (mode_t) (O_CREAT | O_TRUNC)),
+		(mode_t) (S_IRUSR | S_IWUSR));
 
   if(strcmp(userid, "admin") == 0)
     adminmode = TRUE;
@@ -135,7 +136,7 @@ void displayFiles(const char *userid, const int sortby)
 		CGI_DIR, userid);
   (void) printf("</noscript>\n");
 
-  if(!adminmode)
+  if(adminmode == FALSE)
     {
       (void) printf("<script>\n");
       (void) printf("function addFile()\n"
@@ -158,7 +159,7 @@ void displayFiles(const char *userid, const int sortby)
 		CGI_DIR, userid);
   (void) printf("<hr>\n");
 
-  if(adminmode)
+  if(adminmode == TRUE)
     {
       (void) snprintf(buffer, sizeof(buffer), "%s/data", BACKUP_DIR);
 
@@ -175,9 +176,8 @@ void displayFiles(const char *userid, const int sortby)
 	  (void) printf("\n<table width=\"100%%\" border=0 "
 			"cellpadding=0 cellspacing=1>\n");
 	  (void) printf("<tr size=20>\n");
-	  (void) printf("<th bgcolor=\"CornflowerBlue\">%sUser Account%"
-			"s</th>\n", FBEG,
-			FEND);
+	  (void) printf("<th bgcolor=\"CornflowerBlue\">%sUser Account%s"
+			"</th>\n", FBEG, FEND);
 	  (void) printf("<th bgcolor=\"CornflowerBlue\">%sPassword "
 			"%s</th>\n",
 			FBEG, FEND);
@@ -296,7 +296,7 @@ void displayFiles(const char *userid, const int sortby)
 	}
 
       if((files = (struct file_info *)
-	  malloc(ct * sizeof(struct file_info))) == NULL)
+	  malloc((size_t) ct * sizeof(struct file_info))) == NULL)
 	{
 	  (void) closedir(dirp1);
 	  dirp1 = NULL;
@@ -324,6 +324,7 @@ void displayFiles(const char *userid, const int sortby)
 			deleted = 0;
 
 		      files[ct].deleted = deleted;
+		      (void) memset(reldir, 0, sizeof(reldir));
 		      getRel(BACKUP_DIR, reldir, sizeof(reldir));
 		      (void) snprintf(files[ct].location,
 				      sizeof(files[0].location),
@@ -407,39 +408,43 @@ void displayFiles(const char *userid, const int sortby)
 	}
       }
 
-  for(i = 0; i < ct; i++)
-    {
-      if(i % 2 == 0)
-	(void) printf("<tr bgcolor=\"SlateGray\">\n");
-      else
-	(void) printf("<tr bgcolor=\"SteelBlue\">\n");
+  if(files != NULL)
+    for(i = 0; i < ct; i++)
+      {
+	if(i % 2 == 0)
+	  (void) printf("<tr bgcolor=\"SlateGray\">\n");
+	else
+	  (void) printf("<tr bgcolor=\"SteelBlue\">\n");
 
-      if(files[i].deleted > 0)
-	(void) printf("<th>&nbsp</th>\n");
-      else
-	(void) printf("<th><input type=\"checkbox\" "
-		      "name=\"cblist\" value=\"%s-%s\">"
-		      "</th>\n", files[i].dirname, files[i].shortname);
+	if(files[i].deleted > 0)
+	  (void) printf("<th>&nbsp</th>\n");
+	else
+	  (void) printf("<th><input type=\"checkbox\" "
+			"name=\"cblist\" value=\"%s-%s\">"
+			"</th>\n", files[i].dirname, files[i].shortname);
 
-      (void) printf("<th align=left>&nbsp%s%s%s</th>\n", FBEG, files[i].dirname, FEND);
+	(void) printf("<th align=left>&nbsp%s%s%s</th>\n", FBEG,
+		      files[i].dirname, FEND);
 
-      if((tmstr = localtime(&files[i].date)) != NULL)
-        (void) strftime(newdate, sizeof(newdate), "%m/%d/%Y %H:%M:%S", tmstr);
-      else
-        (void) snprintf(newdate, sizeof(newdate), "%s", "???");
+	if((tmstr = localtime(&files[i].date)) != NULL)
+	  (void) strftime(newdate, sizeof(newdate),
+			  "%m/%d/%Y %H:%M:%S", tmstr);
+	else
+	  (void) snprintf(newdate, sizeof(newdate), "%s", "???");
 
-      (void) printf("<th><a href=\"%s\">%s%s%s</a>"
-		    "</th>\n", files[i].location, FBEG,
-		    newdate, FEND);
+	(void) printf("<th><a href=\"%s\">%s%s%s</a>"
+		      "</th>\n", files[i].location, FBEG,
+		      newdate, FEND);
 
-      if(files[i].deleted > 0)
-	(void) printf("<th>%sYES%s</th>\n", FBEG, FEND);
-      else
-	(void) printf("<th>&nbsp</th>\n");
+	if(files[i].deleted > 0)
+	  (void) printf("<th>%sYES%s</th>\n", FBEG, FEND);
+	else
+	  (void) printf("<th>&nbsp</th>\n");
 
-      (void) printf("<th align=left>&nbsp%s%ld%s\n", FBEG, files[i].size, FEND);
-      (void) printf("</tr>\n");
-    }
+	(void) printf("<th align=left>&nbsp%s%ld%s\n",
+		      FBEG, files[i].size, FEND);
+	(void) printf("</tr>\n");
+      }
 
  done_label:
   if(files != NULL)
@@ -467,23 +472,23 @@ void displayFiles(const char *userid, const int sortby)
   (void) printf("</form>\n");
 }
 
-static void getRel(const char *fulldir, char *reldir, const size_t size)
+static void getRel(const char *fulldir, char reldir[], const size_t size)
 {
   int i = 0;
   int j = 0;
   int idx = 0;
 
-  for(i = strlen(fulldir) - 1; i >= 0; i--)
+  for(i = (int) strlen(fulldir) - 1; i >= 0; i--)
     if(fulldir[i] == '/')
       {
 	idx = i;
 	break;
       }
 
-  (void) memset(reldir, '\0', size);
+  (void) memset(reldir, 0, size);
 
-  for(i = idx + 1; i < strlen(fulldir); i++)
-    if(j < size)
+  for(i = idx + 1; i < (int) strlen(fulldir); i++)
+    if(j < (int) size)
       reldir[j++] = fulldir[i];
     else
       break;
@@ -494,8 +499,8 @@ static int date_cmp(const void *e1, const void *e2)
   if(e1 == NULL || e2 == NULL)
     return 0;
 
-  return difftime(((struct file_info *) e1)->date,
-		  ((struct file_info *) e2)->date);
+  return (int) difftime(((struct file_info *) e1)->date,
+			((struct file_info *) e2)->date);
 }
 
 static int name_cmp(const void *e1, const void *e2)
@@ -512,7 +517,8 @@ static int size_cmp(const void *e1, const void *e2)
   if(e1 == NULL || e2 == NULL)
     return 0;
 
-  return ((struct file_info *) e1)->size - ((struct file_info *) e2)->size;
+  return (int) (((struct file_info *) e1)->size -
+		((struct file_info *) e2)->size);
 }
 
 #endif
