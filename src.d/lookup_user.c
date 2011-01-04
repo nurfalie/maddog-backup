@@ -46,11 +46,12 @@ int main(int argc, char *argv[])
 			"content=\"5; url="
 			"%s/display_files.cgi?%s&%d\">",
 			CGI_DIR, argv[1], SORTBY_NAME);
-	  (void) printf("It appears that you are already logged in. "
-			"Please wait to be <a href=\"%s/display_files.cgi?%s&%d\">"
-			"redirected</a>.",
-			CGI_DIR, argv[1],
-			SORTBY_NAME);
+	  (void) printf
+	    ("It appears that you are already logged in. "
+	     "Please wait to be <a href=\"%s/display_files.cgi?%s&%d\">"
+	     "redirected</a>.",
+	     CGI_DIR, argv[1],
+	     SORTBY_NAME);
 	}
       else
 	{
@@ -62,14 +63,14 @@ int main(int argc, char *argv[])
 	  ** Check a predefined list of valid ids.
 	  */
 
-	  if(isValidId(argv[1]))
+	  if(isValidId(argv[1]) == TRUE)
 	    {
 	      (void) snprintf(buffer, sizeof(buffer), "%s/data",
 			      BACKUP_DIR);
 
 	      if(access(buffer, F_OK) != 0)
 		{
-		  mode = PERMISSIONS;
+		  mode = (mode_t) PERMISSIONS;
 		  (void) umask(~mode);
 
 		  if(mkdir(buffer, mode) != 0)
@@ -77,7 +78,7 @@ int main(int argc, char *argv[])
 		  else
 		    passwdInit(TRUE, argv[1]);
 		}
-	      else if(passwdSet(buffer, argv[1]))
+	      else if(passwdSet(buffer, argv[1]) == TRUE)
 		passwdInit(FALSE, argv[1]);
 	      else
 		passwdInit(TRUE, argv[1]);
@@ -98,7 +99,7 @@ static int isValidId(const char *id)
 {
   int i = 0;
 
-  for(i = 0; i < sizeof(users) / sizeof(users[0]); i++)
+  for(i = 0; i < (int) (sizeof(users) / sizeof(users[0])); i++)
     if(strncmp(id, users[i], strlen(users[i])) == 0)
       return TRUE;
 
@@ -131,7 +132,7 @@ static void passwdInit(const int new_id, const char *userid)
   (void) printf("<table width=\"100%%\" border=0 bordercolor=\"tomato\">\n");
   (void) printf("<tr>\n");
 
-  if(new_id)
+  if(new_id == TRUE)
     (void) printf("<th bgcolor=\"lightblue\">Please Choose a Password<br>"
 		  "(Password must be at least ten characters long.)</th>\n");
   else
@@ -145,7 +146,7 @@ static void passwdInit(const int new_id, const char *userid)
   (void) printf("Password<br><input type=\"password\" size=32 maxlength=32 "
 		"name=\"pass\" value=\"\"><br>\n");
 
-  if(new_id)
+  if(new_id == TRUE)
     (void) printf("Retype Password<br><input type=\"password\" size=32 "
 		  "maxlength=32 name=\"pass\" value=\"\"><br>\n");
 
