@@ -44,8 +44,9 @@ int main(int argc, char *argv[])
 	  while(tmp != NULL)
 	    {
 	      (void) memset(buffer, 0, sizeof(buffer));
+	      (void) memset(dirname, 0, sizeof(dirname));
 
-	      for(i = 0, j = 0, fnd = 0; i < strlen(tmp); i++)
+	      for(i = 0, j = 0, fnd = 0; i < (int) strlen(tmp); i++)
 		{
 		  if(fnd == 1)
 		    {
