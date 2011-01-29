@@ -357,7 +357,7 @@ while(($str = <INPUT>))
     elsif($str =~ /users/)
       {
 	$found = 1;
-      }    
+      }
   }
 
 close(INPUT);

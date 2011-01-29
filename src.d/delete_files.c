@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 		  if(tmp[i] == '=')
 		    fnd = 1;
 		}
- 
+
 	      (void) snprintf(filename, sizeof(filename), "%s", buffer);
 	      (void) snprintf(renameto, sizeof(renameto),
 			      "%s/%s/files/deleted/delete.%s",
