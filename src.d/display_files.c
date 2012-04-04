@@ -22,12 +22,13 @@ int main(int argc, char *argv[])
   char *tmp2 = NULL;
   char indata[128];
   char buffer[BUFF_SIZE];
-  char deldir[BUFF_SIZE + strlen("deleted")];
+  char deldir[BUFF_SIZE + 7]; /* strlen("deleted") */
   char *userid = NULL;
   char unknown[] = "UNKNOWN";
   FILE *fp = NULL;
   mode_t mode;
 
+  (void) userid;
   (void) printf("Content-type: text/html\n\n");
   (void) printf("<html><body>\n");
   (void) printf("<title>Mad Dog Backup System</title>\n");
