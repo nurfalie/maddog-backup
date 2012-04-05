@@ -72,12 +72,6 @@ if($file_name)
 	      "<hr>" .
 	      "| <a href=\"javascript:window.close()\">Close</a> |\n" .
 	      "</center>");
-
-	# Zip the file.
-
-	system("zip " .
-	       $datetime . $file_name . ".zip " . $datetime . $file_name);
-	unlink($datetime . $file_name);
       }
     else
       {
