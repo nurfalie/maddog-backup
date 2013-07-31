@@ -8,7 +8,9 @@ standard:	add_file \
 
 -include ./Makefile.tmp
 
-OPTIONS		=	-Wall -pedantic $(LDEFINES)
+OPTIONS		=	-Wall -Werror -Wextra -Wstack-protector \
+			-fPIE -fstack-protector-all \
+	                -pedantic -pie $(LDEFINES)
 GCC		=	gcc
 
 INCLUDES		=	common.h
