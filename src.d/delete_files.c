@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 					  buffer);
 			  (void) memset(buffer, 0, sizeof(buffer));
 			}
-		      else
+		      else if(j < sizeof(buffer))
 			buffer[j++] = tmp[i];
 		    }
 

@@ -292,6 +292,7 @@ void displayFiles(const char *userid, const int sortby)
       if(ct == 0)
 	{
 	  (void) closedir(dirp1);
+	  dirp1 = NULL;
 	  goto done_label;
 	}
 
@@ -303,7 +304,7 @@ void displayFiles(const char *userid, const int sortby)
 	  goto done_label;
 	}
 
-      ct = 0;
+      i = 0;
 
       while((dirent1 = readdir(dirp1)) != NULL)
 	if(!(strcmp(dirent1->d_name, ".") == 0 ||
@@ -323,25 +324,25 @@ void displayFiles(const char *userid, const int sortby)
 		      else
 			deleted = 0;
 
-		      files[ct].deleted = deleted;
+		      files[i].deleted = deleted;
 		      (void) memset(reldir, 0, sizeof(reldir));
 		      getRel(BACKUP_DIR, reldir, sizeof(reldir));
-		      (void) snprintf(files[ct].location,
+		      (void) snprintf(files[i].location,
 				      sizeof(files[0].location),
 				      "../../%s/%s/files/%s/%s",
 				      reldir, userid,
 				      dirent1->d_name, dirent2->d_name);
 
 		      if(deleted > 0)
-			(void) snprintf(files[ct].dirname,
+			(void) snprintf(files[i].dirname,
 					sizeof(files[0].dirname), "%s",
 					dirent2->d_name);
 		      else
-			(void) snprintf(files[ct].dirname,
+			(void) snprintf(files[i].dirname,
 					sizeof(files[0].dirname), "%s",
 					dirent1->d_name);
 
-		      (void) snprintf(files[ct].shortname,
+		      (void) snprintf(files[i].shortname,
 				      sizeof(files[0].shortname), "%s",
 				      dirent2->d_name);
 		      (void) snprintf(buffer,
@@ -352,20 +353,26 @@ void displayFiles(const char *userid, const int sortby)
 
 		      if(stat(buffer, &stbuf) != -1)
 			{
-			  files[ct].date = stbuf.st_mtime;
-			  files[ct].size = stbuf.st_size / 1024;
+			  files[i].date = stbuf.st_mtime;
+			  files[i].size = stbuf.st_size / 1024;
 			}
 		      else
 			{
-			  files[ct].date = time((time_t *) NULL);
-			  files[ct].size = 0;
+			  files[i].date = time((time_t *) NULL);
+			  files[i].size = 0;
 			}
 
-		      ct += 1;
+		      i += 1;
+
+		      if(i >= ct)
+			break;
 		    }
 
 		(void) closedir(dirp2);
 	      }
+
+	    if(i >= ct)
+	      break;
 	  }
 
       (void) closedir(dirp1);
