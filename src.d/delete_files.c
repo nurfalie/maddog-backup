@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 		    "content=\"5; url=%s/display_files.cgi?"
 		    "%s&%d\">", CGI_DIR, argv[1], SORTBY_NAME);
 
-      if(fgets(indata, (int) sizeof(indata) - 1, stdin) != NULL)
+      if(fgets(indata, (int) sizeof(indata), stdin) != NULL)
 	{
 	  tmp = strtok(indata, "&");
 

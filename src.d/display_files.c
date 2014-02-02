@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
       (void) snprintf(buffer, sizeof(buffer), "%s/data/passwd.%s",
 		      BACKUP_DIR, argv[1]);
 
-      if(fgets(indata, (int) sizeof(indata) - 1, stdin) == NULL)
+      if(fgets(indata, (int) sizeof(indata), stdin) == NULL)
 	(void) printf(ERROR, __LINE__, __FILE__, HOME);
       else
 	{

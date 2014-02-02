@@ -327,11 +327,19 @@ void displayFiles(const char *userid, const int sortby)
 		      files[i].deleted = deleted;
 		      (void) memset(reldir, 0, sizeof(reldir));
 		      getRel(BACKUP_DIR, reldir, sizeof(reldir));
-		      (void) snprintf(files[i].location,
-				      sizeof(files[0].location),
-				      "../../%s/%s/files/%s/%s",
-				      reldir, userid,
-				      dirent1->d_name, dirent2->d_name);
+
+		      if(strlen(reldir) > 0)
+			(void) snprintf(files[i].location,
+					sizeof(files[0].location),
+					"../../%s/%s/files/%s/%s",
+					reldir, userid,
+					dirent1->d_name, dirent2->d_name);
+		      else
+			(void) snprintf(files[i].location,
+					sizeof(files[0].location),
+					"../../%s/files/%s/%s",
+					userid,
+					dirent1->d_name, dirent2->d_name);
 
 		      if(deleted > 0)
 			(void) snprintf(files[i].dirname,
@@ -481,24 +489,35 @@ void displayFiles(const char *userid, const int sortby)
 
 static void getRel(const char *fulldir, char reldir[], const size_t size)
 {
+  int found = 0;
   size_t i = 0;
   size_t j = 0;
   size_t idx = 0;
 
-  for(i = strlen(fulldir) - 1; i >= 0; i--)
-    if(fulldir[i] == '/')
+  if(strlen(fulldir) > 0)
+    for(i = strlen(fulldir) - 1; i == 0 || i > 0; i--)
       {
-	idx = i;
-	break;
+	if(fulldir[i] == '/')
+	  {
+	    found = 1;
+	    idx = i;
+	    break;
+	  }
+
+	if(i == 0)
+	  break;
       }
 
   (void) memset(reldir, 0, size);
 
-  for(i = idx + 1; i < strlen(fulldir); i++)
-    if(j < size)
-      reldir[j++] = fulldir[i];
-    else
-      break;
+  if(found)
+    for(i = idx + 1; i < strlen(fulldir); i++)
+      {
+	if(j < size)
+	  reldir[j++] = fulldir[i];
+	else
+	  break;
+      }
 }
 
 static int date_cmp(const void *e1, const void *e2)
