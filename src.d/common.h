@@ -106,8 +106,8 @@ void displayFiles(const char *userid, const int sortby)
   char reldir[BUFF_SIZE];
   char newdate[BUFF_SIZE];
   FILE *fp = NULL;
-  long i = 0;
-  long ct = 0;
+  size_t i = 0;
+  size_t ct = 0;
   struct tm *tmstr = NULL;
   struct stat stbuf;
   struct dirent *dirent1 = NULL;
@@ -481,11 +481,11 @@ void displayFiles(const char *userid, const int sortby)
 
 static void getRel(const char *fulldir, char reldir[], const size_t size)
 {
-  int i = 0;
-  int j = 0;
-  int idx = 0;
+  size_t i = 0;
+  size_t j = 0;
+  size_t idx = 0;
 
-  for(i = (int) strlen(fulldir) - 1; i >= 0; i--)
+  for(i = strlen(fulldir) - 1; i >= 0; i--)
     if(fulldir[i] == '/')
       {
 	idx = i;
@@ -494,8 +494,8 @@ static void getRel(const char *fulldir, char reldir[], const size_t size)
 
   (void) memset(reldir, 0, size);
 
-  for(i = idx + 1; i < (int) strlen(fulldir); i++)
-    if(j < (int) size)
+  for(i = idx + 1; i < strlen(fulldir); i++)
+    if(j < size)
       reldir[j++] = fulldir[i];
     else
       break;

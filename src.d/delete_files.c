@@ -15,8 +15,6 @@
 
 int main(int argc, char *argv[])
 {
-  int i = 0;
-  int j = 0;
   int fnd = 0;
   char *tmp = NULL;
   char buffer[BUFF_SIZE];
@@ -25,6 +23,8 @@ int main(int argc, char *argv[])
   char filename[BUFF_SIZE];
   char renameto[BUFF_SIZE];
   char renamefrom[BUFF_SIZE];
+  size_t i = 0;
+  size_t j = 0;
 
   (void) printf("Content-type: text/html\n\n");
   (void) printf("<html>");
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	      (void) memset(buffer, 0, sizeof(buffer));
 	      (void) memset(dirname, 0, sizeof(dirname));
 
-	      for(i = 0, j = 0, fnd = 0; i < (int) strlen(tmp); i++)
+	      for(i = 0, j = 0, fnd = 0; i < strlen(tmp); i++)
 		{
 		  if(fnd == 1)
 		    {

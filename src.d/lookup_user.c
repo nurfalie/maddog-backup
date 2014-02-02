@@ -97,9 +97,9 @@ int main(int argc, char *argv[])
 
 static int isValidId(const char *id)
 {
-  int i = 0;
+  size_t i = 0;
 
-  for(i = 0; i < (int) (sizeof(users) / sizeof(users[0])); i++)
+  for(i = 0; i < sizeof(users) / sizeof(users[0]); i++)
     if(strncmp(id, users[i], strlen(users[i])) == 0)
       return TRUE;
 
