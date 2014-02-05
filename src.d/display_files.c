@@ -1,6 +1,6 @@
 /*
 ** Alexis Megas.
-** (c) 2003, 2006.
+** (c) 2003 - 2014.
 */
 
 /*
@@ -15,17 +15,17 @@
 
 int main(int argc, char *argv[])
 {
-  int set = 1;
-  int sortby = SORTBY_NAME;
-  char one[] = "1";
-  char *tmp1 = NULL;
-  char *tmp2 = NULL;
-  char indata[128];
+  FILE *fp = 0;
   char buffer[BUFF_SIZE];
   char deldir[BUFF_SIZE + 7]; /* strlen("deleted") */
-  char *userid = NULL;
+  char indata[128];
+  char one[] = "1";
+  char *tmp1 = 0;
+  char *tmp2 = 0;
   char unknown[] = "UNKNOWN";
-  FILE *fp = NULL;
+  char *userid = 0;
+  int set = 1;
+  int sortby = SORTBY_NAME;
   mode_t mode;
 
   (void) userid;
@@ -33,20 +33,20 @@ int main(int argc, char *argv[])
   (void) printf("<html><body>\n");
   (void) printf("<title>Mad Dog Backup System</title>\n");
 
-  if(argc > 1 && argv[1] != NULL)
+  if(argc > 1 && argv[1] != 0)
     {
-      if((tmp1 = strtok(argv[1], "\\&")) != NULL)
+      if((tmp1 = strtok(argv[1], "\\&")) != 0)
 	userid = tmp1;
       else
 	userid = unknown;
 
-      if((tmp1 = strtok(NULL, "\\&")) != NULL)
+      if((tmp1 = strtok(0, "\\&")) != 0)
 	sortby = atoi(tmp1);
     }
   else
     userid = unknown;
 
-  if(argc > 1 && argv[1] != NULL && strcmp(argv[1], "admin") != 0)
+  if(argc > 1 && argv[1] != 0 && strcmp(argv[1], "admin") != 0)
     {
       (void) printf("<script>\n");
       (void) printf("function checkBoxSelect(val)\n"
@@ -64,9 +64,9 @@ int main(int argc, char *argv[])
       (void) printf("</script>\n");
     }
 
-  if(argc > 1 && argv[1] != NULL)
+  if(argc > 1 && argv[1] != 0)
     {
-      if((tmp1 = getenv("REMOTE_ADDR")) == NULL)
+      if((tmp1 = getenv("REMOTE_ADDR")) == 0)
 	tmp1 = one;
 
       (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s."
@@ -86,17 +86,17 @@ int main(int argc, char *argv[])
       (void) snprintf(buffer, sizeof(buffer), "%s/data/passwd.%s",
 		      BACKUP_DIR, argv[1]);
 
-      if(fgets(indata, (int) sizeof(indata), stdin) == NULL)
+      if(fgets(indata, (int) sizeof(indata), stdin) == 0)
 	(void) printf(ERROR, __LINE__, __FILE__, HOME);
       else
 	{
 	  if(access(buffer, F_OK) == 0)
 	    {
-	      if((fp = fopen(buffer, "r")) != NULL)
+	      if((fp = fopen(buffer, "r")) != 0)
 		{
-		  if(fgets(buffer, (int) sizeof(buffer), fp) != NULL)
+		  if(fgets(buffer, (int) sizeof(buffer), fp) != 0)
 		    {
-		      if((tmp1 = indata) != NULL)
+		      if((tmp1 = indata) != 0)
 			{
 			  if(strcmp(buffer, tmp1) != 0)
 			    (void) printf("<center>Password is not correct. "
@@ -120,9 +120,9 @@ int main(int argc, char *argv[])
 	      else
 		(void) printf(ERROR, __LINE__, __FILE__, HOME);
 	    }
-	  else if((tmp1 = strtok(indata, "&")) == NULL)
+	  else if((tmp1 = strtok(indata, "&")) == 0)
 	    (void) printf(ERROR, __LINE__, __FILE__, HOME);
-	  else if((tmp2 = strtok(NULL, "&")) == NULL)
+	  else if((tmp2 = strtok(0, "&")) == 0)
 	    (void) printf(ERROR, __LINE__, __FILE__, HOME);
 	  else if(strcmp(tmp1, tmp2) != 0 || strcmp(tmp1, "pass=") == 0)
 	    (void) printf("<center>Password entries do not match. Please "
@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
 	    {
 	      (void) umask((mode_t) ~S_IRWXU);
 
-	      if((fp = fopen(buffer, "w")) != NULL)
+	      if((fp = fopen(buffer, "w")) != 0)
 		{
 		  if(fputs(tmp1, fp) == EOF)
 		    (void) printf(ERROR, __LINE__, __FILE__, HOME);

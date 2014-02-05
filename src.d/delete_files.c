@@ -1,6 +1,6 @@
 /*
 ** Alexis Megas.
-** (c) 2003.
+** (c) 2003 - 2014.
 */
 
 /*
@@ -15,14 +15,14 @@
 
 int main(int argc, char *argv[])
 {
-  int fnd = 0;
-  char *tmp = NULL;
   char buffer[BUFF_SIZE];
-  char indata[65536];
   char dirname[BUFF_SIZE];
   char filename[BUFF_SIZE];
-  char renameto[BUFF_SIZE];
+  char indata[65536];
   char renamefrom[BUFF_SIZE];
+  char renameto[BUFF_SIZE];
+  char *tmp = 0;
+  int fnd = 0;
   size_t i = 0;
   size_t j = 0;
 
@@ -31,22 +31,22 @@ int main(int argc, char *argv[])
   (void) printf("<title>Mad Dog Backup System</title>\n<body>");
   (void) printf("<center>\n");
 
-  if(argc > 1 && argv[1] != NULL)
+  if(argc > 1 && argv[1] != 0)
     {
       (void) printf("<meta http-equiv=\"refresh\" "
 		    "content=\"5; url=%s/display_files.cgi?"
 		    "%s&%d\">", CGI_DIR, argv[1], SORTBY_NAME);
 
-      if(fgets(indata, (int) sizeof(indata), stdin) != NULL)
+      if(fgets(indata, (int) sizeof(indata), stdin) != 0)
 	{
 	  tmp = strtok(indata, "&");
 
-	  while(tmp != NULL)
+	  while(tmp != 0)
 	    {
 	      (void) memset(buffer, 0, sizeof(buffer));
 	      (void) memset(dirname, 0, sizeof(dirname));
 
-	      for(i = 0, j = 0, fnd = 0; i < strlen(tmp); i++)
+	      for(fnd = 0, i = 0, j = 0; i < strlen(tmp); i++)
 		{
 		  if(fnd == 1)
 		    {
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 			      "%s/%s/files/%s/%s",
 			      BACKUP_DIR, argv[1], dirname, filename);
 	      (void) rename(renamefrom, renameto);
-	      tmp = strtok(NULL, "&");
+	      tmp = strtok(0, "&");
 	    }
 
 	  (void) printf("Your file(s) has(have) been scheduled for deletion. "

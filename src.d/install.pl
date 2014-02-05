@@ -205,7 +205,7 @@ foreach $dir (@dirs)
 
 # Determine the cgi URL.
 
-$cgiurl = "https://193.168.0.5/cgi-bin/maddog-backup.d";
+$cgiurl = "https://192.168.178.1/cgi-bin/maddog-backup.d";
 
 do
   {
@@ -223,7 +223,7 @@ $cgiurl = $val;
 
 # Determine the home URL.
 
-$homeurl = "https://193.168.0.5/maddog-backup.d";
+$homeurl = "https://192.168.178.1/maddog-backup.d";
 
 do
   {

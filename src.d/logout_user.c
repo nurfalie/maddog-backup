@@ -1,6 +1,6 @@
 /*
 ** Alexis Megas.
-** (c) 2003, 2007.
+** (c) 2003 - 2014.
 */
 
 /*
@@ -15,9 +15,9 @@
 
 int main(int argc, char *argv[])
 {
-  char *tmp1 = NULL;
-  char tmp2[BUFF_SIZE];
   char buffer[BUFF_SIZE];
+  char *tmp1 = 0;
+  char tmp2[BUFF_SIZE];
   size_t i = 0;
 
   (void) printf("Content-type: text/html\n\n");
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 		"content=\"5; url=%s\">", HOME);
   (void) printf("<center>\n");
 
-  if(argc > 1 && argv[1] != NULL)
+  if(argc > 1 && argv[1] != 0)
     {
       (void) memset(tmp2, 0, sizeof(tmp2));
       (void) snprintf(tmp2, sizeof(tmp2), "%s", argv[1]);
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
       if(strlen(tmp2) == 0)
 	return EXIT_FAILURE;
 
-      if((tmp1 = getenv("REMOTE_ADDR")) == NULL)
+      if((tmp1 = getenv("REMOTE_ADDR")) == 0)
 	tmp1 = "1";
 
       (void) snprintf(buffer, sizeof(buffer), "%s/data/bcksys.loggedin.%s.%s",

@@ -28,37 +28,37 @@
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
-#include <time.h>
+#include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <stdio.h>
-#include <dirent.h>
 #include <limits.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <time.h>
+#include <unistd.h>
 
 /*
 ** -- Numeric Defines --
 */
 
-#define TRUE 1
-#define FALSE 0
 #define BUFF_SIZE 512
+#define FALSE 0
 #define PERMISSIONS (S_IRWXU | S_IRWXG)
+#define TRUE 1
 
 /*
 ** -- String Defines --
 */
 
+#define ERROR "<center>An unexpected error occurred at line %d in file %s." \
+  "<br><a href=\"%s\">Return</a> to the main screen.</center>\n"
 #define FBEG "<font size=3 color=\"wheat\"><b>"
 #define FEND "</b></font>"
-#define ERROR "<center>An unexpected error occurred at line %d in file %s."\
-  "<br><a href=\"%s\">Return</a> to the main screen.</center>\n"
-#define SORTBY_NAME 1
 #define SORTBY_DATE 2
+#define SORTBY_NAME 1
 #define SORTBY_SIZE 3
 
 /*
@@ -84,8 +84,8 @@ static void getRel(const char *, char *, const size_t);
 struct file_info
 {
   char dirname[_POSIX_PATH_MAX];
-  char shortname[_POSIX_PATH_MAX];
   char location[BUFF_SIZE];
+  char shortname[_POSIX_PATH_MAX];
   int deleted;
   off_t size;
   time_t date;
@@ -97,28 +97,28 @@ struct file_info
 
 void displayFiles(const char *userid, const int sortby)
 {
-  DIR *dirp1 = NULL;
-  DIR *dirp2 = NULL;
-  int deleted = 0;
-  int adminmode = FALSE;
-  char *tmp = NULL;
+  DIR *dirp1 = 0;
+  DIR *dirp2 = 0;
+  FILE *fp = 0;
+  char *tmp = 0;
   char buffer[BUFF_SIZE];
-  char reldir[BUFF_SIZE];
   char newdate[BUFF_SIZE];
-  FILE *fp = NULL;
+  char reldir[BUFF_SIZE];
+  int adminmode = FALSE;
+  int deleted = 0;
   size_t i = 0;
   size_t ct = 0;
-  struct tm *tmstr = NULL;
+  struct dirent *dirent1 = 0;
+  struct dirent *dirent2 = 0;
+  struct file_info *files = 0;
   struct stat stbuf;
-  struct dirent *dirent1 = NULL;
-  struct dirent *dirent2 = NULL;
-  struct file_info *files = NULL;
+  struct tm *tmstr = 0;
 
   /*
   ** Create the /tmp/bcksys.loggedin.userid file.
   */
 
-  if((tmp = getenv("REMOTE_ADDR")) == NULL)
+  if((tmp = getenv("REMOTE_ADDR")) == 0)
     tmp = "1";
 
   (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s.%s",
@@ -163,7 +163,7 @@ void displayFiles(const char *userid, const int sortby)
     {
       (void) snprintf(buffer, sizeof(buffer), "%s/data", BACKUP_DIR);
 
-      if((dirp1 = opendir(buffer)) != NULL)
+      if((dirp1 = opendir(buffer)) != 0)
 	{
 	  (void) printf("<center>\n");
 	  (void) printf("<table cellpadding=1 cellspacing=0 border=0 "
@@ -183,7 +183,7 @@ void displayFiles(const char *userid, const int sortby)
 			FBEG, FEND);
 	  (void) printf("</tr>\n");
 
-	  while((dirent1 = readdir(dirp1)) != NULL)
+	  while((dirent1 = readdir(dirp1)) != 0)
 	    if(!(strcmp(dirent1->d_name, ".") == 0 ||
 		 strcmp(dirent1->d_name, "..") == 0))
 	      if(strncmp(dirent1->d_name, "passwd", 6) == 0)
@@ -191,7 +191,7 @@ void displayFiles(const char *userid, const int sortby)
 		  (void) snprintf(buffer, sizeof(buffer), "%s/data/%s",
 				  BACKUP_DIR, dirent1->d_name);
 
-		  if((fp = fopen(buffer, "r")) != NULL)
+		  if((fp = fopen(buffer, "r")) != 0)
 		    {
 		      (void) printf("<tr bgcolor=\"SlateGray\">\n");
 		      (void) printf("<th>%s%s%s</th>\n",
@@ -199,7 +199,7 @@ void displayFiles(const char *userid, const int sortby)
 						 FEND);
 		      (void) memset(buffer, 0, sizeof(buffer));
 
-		      if(fgets(buffer, (int) sizeof(buffer), fp) != NULL)
+		      if(fgets(buffer, (int) sizeof(buffer), fp) != 0)
 			(void) printf("<th>%s%s%s</th>\n",
 				      FBEG, strrchr(buffer, '=') + 1, FEND);
 		      else
@@ -258,64 +258,64 @@ void displayFiles(const char *userid, const int sortby)
 
   (void) snprintf(buffer, sizeof(buffer), "%s/%s/files", BACKUP_DIR, userid);
 
-  if((dirp1 = opendir(buffer)) != NULL)
+  if((dirp1 = opendir(buffer)) != 0)
     {
       ct = 0;
-      dirp2 = NULL;
+      dirp2 = 0;
 
-      while((dirent1 = readdir(dirp1)) != NULL)
+      while((dirent1 = readdir(dirp1)) != 0)
 	if(!(strcmp(dirent1->d_name, ".") == 0 ||
 	     strcmp(dirent1->d_name, "..") == 0))
 	  {
 	    (void) snprintf(buffer, sizeof(buffer), "%s/%s/files/%s",
 			    BACKUP_DIR, userid, dirent1->d_name);
 
-	    if((dirp2 = opendir(buffer)) != NULL)
+	    if((dirp2 = opendir(buffer)) != 0)
 	      {
-		while((dirent2 = readdir(dirp2)) != NULL)
+		while((dirent2 = readdir(dirp2)) != 0)
 		  if(!(strcmp(dirent2->d_name, ".") == 0 ||
 		       strcmp(dirent2->d_name, "..") == 0))
 		    ct += 1;
 
 		(void) closedir(dirp2);
-		dirp2 = NULL;
+		dirp2 = 0;
 	      }
 	  }
 
       (void) rewinddir(dirp1);
 
-      if(dirp2 != NULL)
+      if(dirp2 != 0)
 	(void) closedir(dirp2);
 
-      dirp2 = NULL;
+      dirp2 = 0;
 
       if(ct == 0)
 	{
 	  (void) closedir(dirp1);
-	  dirp1 = NULL;
+	  dirp1 = 0;
 	  goto done_label;
 	}
 
       if((files = (struct file_info *)
-	  malloc((size_t) ct * sizeof(struct file_info))) == NULL)
+	  malloc((size_t) ct * sizeof(struct file_info))) == 0)
 	{
 	  (void) closedir(dirp1);
-	  dirp1 = NULL;
+	  dirp1 = 0;
 	  goto done_label;
 	}
 
       i = 0;
 
-      while((dirent1 = readdir(dirp1)) != NULL)
+      while((dirent1 = readdir(dirp1)) != 0)
 	if(!(strcmp(dirent1->d_name, ".") == 0 ||
 	     strcmp(dirent1->d_name, "..") == 0))
 	  {
 	    (void) snprintf(buffer, sizeof(buffer), "%s/%s/files/%s",
 			    BACKUP_DIR, userid, dirent1->d_name);
 
-	    if((dirp2 = opendir(buffer)) != NULL)
+	    if((dirp2 = opendir(buffer)) != 0)
 	      {
-		while((dirent2 = readdir(dirp2)) != NULL)
+		while((dirent2 = readdir(dirp2)) != 0)
 		  if(!(strcmp(dirent2->d_name, ".") == 0 ||
 		       strcmp(dirent2->d_name, "..") == 0))
 		    {
@@ -366,7 +366,7 @@ void displayFiles(const char *userid, const int sortby)
 			}
 		      else
 			{
-			  files[i].date = time((time_t *) NULL);
+			  files[i].date = time((time_t *) 0);
 			  files[i].size = 0;
 			}
 
@@ -390,7 +390,7 @@ void displayFiles(const char *userid, const int sortby)
   ** Sort the files by the selected attribute.
   */
 
-  if(files != NULL)
+  if(files != 0)
     switch(sortby)
       {
       case SORTBY_DATE:
@@ -423,7 +423,7 @@ void displayFiles(const char *userid, const int sortby)
 	}
       }
 
-  if(files != NULL)
+  if(files != 0)
     for(i = 0; i < ct; i++)
       {
 	if(i % 2 == 0)
@@ -441,7 +441,7 @@ void displayFiles(const char *userid, const int sortby)
 	(void) printf("<th align=left>&nbsp%s%s%s</th>\n", FBEG,
 		      files[i].dirname, FEND);
 
-	if((tmstr = localtime(&files[i].date)) != NULL)
+	if((tmstr = localtime(&files[i].date)) != 0)
 	  (void) strftime(newdate, sizeof(newdate),
 			  "%m/%d/%Y %H:%M:%S", tmstr);
 	else
@@ -462,10 +462,10 @@ void displayFiles(const char *userid, const int sortby)
       }
 
  done_label:
-  if(files != NULL)
+  if(files != 0)
     {
       free(files);
-      files = NULL;
+      files = 0;
     }
 
   (void) printf("</td></tr></table>\n");
@@ -491,8 +491,8 @@ static void getRel(const char *fulldir, char reldir[], const size_t size)
 {
   int found = 0;
   size_t i = 0;
-  size_t j = 0;
   size_t idx = 0;
+  size_t j = 0;
 
   if(strlen(fulldir) > 0)
     for(i = strlen(fulldir) - 1; i == 0 || i > 0; i--)
@@ -522,7 +522,7 @@ static void getRel(const char *fulldir, char reldir[], const size_t size)
 
 static int date_cmp(const void *e1, const void *e2)
 {
-  if(e1 == NULL || e2 == NULL)
+  if(e1 == 0 || e2 == 0)
     return 0;
 
   return (int) difftime(((struct file_info *) e1)->date,
@@ -531,7 +531,7 @@ static int date_cmp(const void *e1, const void *e2)
 
 static int name_cmp(const void *e1, const void *e2)
 {
-  if(e1 == NULL || e2 == NULL)
+  if(e1 == 0 || e2 == 0)
     return 0;
 
   return strcmp(((struct file_info *) e1)->dirname,
@@ -540,7 +540,7 @@ static int name_cmp(const void *e1, const void *e2)
 
 static int size_cmp(const void *e1, const void *e2)
 {
-  if(e1 == NULL || e2 == NULL)
+  if(e1 == 0 || e2 == 0)
     return 0;
 
   return (int) (((struct file_info *) e1)->size -

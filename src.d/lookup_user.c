@@ -19,8 +19,8 @@ static void passwdInit(const int, const char *);
 
 int main(int argc, char *argv[])
 {
-  char *tmp = NULL;
   char buffer[BUFF_SIZE];
+  char *tmp = 0;
   mode_t mode;
 
   (void) printf("Content-type: text/html\n\n");
@@ -28,13 +28,13 @@ int main(int argc, char *argv[])
   (void) printf("<title>Mad Dog Backup System</title>\n");
   (void) printf("<center>\n");
 
-  if(argc > 1 && argv[1] != NULL)
+  if(argc > 1 && argv[1] != 0)
     {
       /*
       ** Does a special file exist?
       */
 
-      if((tmp = getenv("REMOTE_ADDR")) == NULL)
+      if((tmp = getenv("REMOTE_ADDR")) == 0)
 	tmp = "1";
 
       (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s.%s",

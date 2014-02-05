@@ -1,6 +1,6 @@
 /*
 ** Alexis Megas.
-** (c) 2003.
+** (c) 2003 - 2014.
 */
 
 /*
@@ -15,18 +15,18 @@
 
 int main(int argc, char *argv[])
 {
-  DIR *dirp1= NULL;
-  DIR *dirp2 = NULL;
+  DIR *dirp1= 0;
+  DIR *dirp2 = 0;
   char buffer[BUFF_SIZE];
-  struct dirent *dirent1 = NULL;
-  struct dirent *dirent2 = NULL;
+  struct dirent *dirent1 = 0;
+  struct dirent *dirent2 = 0;
 
   (void) printf("Content-type: text/html\n\n");
   (void) printf("<html>");
   (void) printf("<title>Mad Dog Backup System</title>\n<body>");
   (void) printf("<center>\n");
 
-  if(argc > 1 && argv[1] != NULL)
+  if(argc > 1 && argv[1] != 0)
     {
       (void) printf("<table cellpadding=0 width=\"100%%\" cellspacing=1 "
 		    "border=0 bgcolor=\"DarkSlateGray\"><tr><td>\n");
@@ -57,17 +57,17 @@ int main(int argc, char *argv[])
       (void) snprintf(buffer, sizeof(buffer), "%s/%s/files", BACKUP_DIR,
 		      argv[1]);
 
-      if((dirp1 = opendir(buffer)) != NULL)
+      if((dirp1 = opendir(buffer)) != 0)
 	{
-	  while((dirent1 = readdir(dirp1)) != NULL)
+	  while((dirent1 = readdir(dirp1)) != 0)
 	    if(!(strcmp(dirent1->d_name, ".") == 0 ||
 		 strcmp(dirent1->d_name, "..") == 0))
 	      {
 		(void) snprintf(buffer, sizeof(buffer), "%s/%s/files/%s",
 				BACKUP_DIR, argv[1], dirent1->d_name);
 
-		if((dirp2 = opendir(buffer)) != NULL)
-		  while((dirent2 = readdir(dirp2)) != NULL)
+		if((dirp2 = opendir(buffer)) != 0)
+		  while((dirent2 = readdir(dirp2)) != 0)
 		    if(!(strcmp(dirent2->d_name, ".") == 0 ||
 			 strcmp(dirent2->d_name, "..") == 0 ||
 			 strncmp(dirent2->d_name, "delete.", (size_t) 7) == 0))
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 			break;
 		      }
 
-		if(dirp2 != NULL)
+		if(dirp2 != 0)
 		  (void) closedir(dirp2);
 	      }
 
