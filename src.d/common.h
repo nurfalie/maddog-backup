@@ -126,14 +126,14 @@ void displayFiles(const char *userid, const int sortby)
   (void) fchmod(creat(buffer, (mode_t) (O_CREAT | O_TRUNC)),
 		(mode_t) (S_IRUSR | S_IWUSR));
 
-  if(strcmp(userid, "admin") == 0)
+  if(userid && strcmp(userid, "admin") == 0)
     adminmode = TRUE;
   else
     adminmode = FALSE;
 
   (void) printf("<noscript><blink>JavaScript Required!</blink><br>");
   (void) printf(" | <a href=\"%s/logout_user.cgi?%s\">Logout</a> |<br>\n",
-		CGI_DIR, userid);
+		CGI_DIR, userid ? userid : "user");
   (void) printf("</noscript>\n");
 
   if(adminmode == FALSE)
@@ -146,7 +146,7 @@ void displayFiles(const char *userid, const int sortby)
 		    "\"MadDogBackupSystem\","
 		    "\"resizable=yes,width=800,height=230,scrollbars=yes\")"
 		    ";\n",
-		    CGI_DIR, userid);
+		    CGI_DIR, userid ? userid : "user");
       (void) printf("}\n");
       (void) printf("</script>");
       (void) printf("<input type=\"button\" onClick=\"javascript:addFile()\" "
@@ -156,7 +156,7 @@ void displayFiles(const char *userid, const int sortby)
   (void) printf("<input type=\"button\" onClick='window.location=\""
 		"%s/logout_user.cgi?%s\"' "
 		"value=\"Logout\">\n",
-		CGI_DIR, userid);
+		CGI_DIR, userid ? userid : "user");
   (void) printf("<hr>\n");
 
   if(adminmode == TRUE)
@@ -221,7 +221,7 @@ void displayFiles(const char *userid, const int sortby)
 
   (void) printf("<form name=\"mainform\" ");
   (void) printf("action=\"%s/delete_files.cgi?%s\" "
-		"method=\"post\">", CGI_DIR, userid);
+		"method=\"post\">", CGI_DIR, userid ? userid : "user");
 
   /*
   ** Create and populate the table.
@@ -239,24 +239,25 @@ void displayFiles(const char *userid, const int sortby)
   (void) printf("<th bgcolor=\"CornflowerBlue\">"
 		"<a href=\"./display_files.cgi"
 		"?%s&%d\">%sFile Name%s</a></th>\n",
-		userid, SORTBY_NAME, FBEG, FEND);
+		userid ? userid : "user", SORTBY_NAME, FBEG, FEND);
   (void) printf("<th bgcolor=\"CornflowerBlue\">"
 		"<a href=\"./display_files.cgi"
 		"?%s&%d\">%sArchival Date%s</a></th>\n",
-		userid, SORTBY_DATE, FBEG, FEND);
+		userid ? userid : "user", SORTBY_DATE, FBEG, FEND);
   (void) printf("<th bgcolor=\"CornflowerBlue\">%sDeleted%s</th>\n",
 		FBEG, FEND);
   (void) printf("<th bgcolor=\"CornflowerBlue\">"
 		"<a href=\"./display_files.cgi"
 		"?%s&%d\">%sSize (KB)%s</a></th>\n",
-		userid, SORTBY_SIZE, FBEG, FEND);
+		userid ? userid : "user", SORTBY_SIZE, FBEG, FEND);
   (void) printf("</tr>\n");
 
   /*
   ** Read all of the files and create tables for them.
   */
 
-  (void) snprintf(buffer, sizeof(buffer), "%s/%s/files", BACKUP_DIR, userid);
+  (void) snprintf(buffer, sizeof(buffer), "%s/%s/files", BACKUP_DIR,
+		  userid ? userid : "user");
 
   if((dirp1 = opendir(buffer)) != 0)
     {
@@ -268,7 +269,8 @@ void displayFiles(const char *userid, const int sortby)
 	     strcmp(dirent1->d_name, "..") == 0))
 	  {
 	    (void) snprintf(buffer, sizeof(buffer), "%s/%s/files/%s",
-			    BACKUP_DIR, userid, dirent1->d_name);
+			    BACKUP_DIR, userid ? userid : "user",
+			    dirent1->d_name);
 
 	    if((dirp2 = opendir(buffer)) != 0)
 	      {
@@ -311,7 +313,8 @@ void displayFiles(const char *userid, const int sortby)
 	     strcmp(dirent1->d_name, "..") == 0))
 	  {
 	    (void) snprintf(buffer, sizeof(buffer), "%s/%s/files/%s",
-			    BACKUP_DIR, userid, dirent1->d_name);
+			    BACKUP_DIR, userid ? userid : "user",
+			    dirent1->d_name);
 
 	    if((dirp2 = opendir(buffer)) != 0)
 	      {
@@ -332,13 +335,13 @@ void displayFiles(const char *userid, const int sortby)
 			(void) snprintf(files[i].location,
 					sizeof(files[0].location),
 					"../../%s/%s/files/%s/%s",
-					reldir, userid,
+					reldir, userid ? userid : "user",
 					dirent1->d_name, dirent2->d_name);
 		      else
 			(void) snprintf(files[i].location,
 					sizeof(files[0].location),
 					"../../%s/files/%s/%s",
-					userid,
+					userid ? userid : "user",
 					dirent1->d_name, dirent2->d_name);
 
 		      if(deleted > 0)
@@ -356,7 +359,8 @@ void displayFiles(const char *userid, const int sortby)
 		      (void) snprintf(buffer,
 				      sizeof(buffer),
 				      "%s/%s/files/%s/%s",
-				      BACKUP_DIR, userid, dirent1->d_name,
+				      BACKUP_DIR, userid ? userid : "user",
+				      dirent1->d_name,
 				      dirent2->d_name);
 
 		      if(stat(buffer, &stbuf) != -1)
@@ -494,7 +498,7 @@ static void getRel(const char *fulldir, char reldir[], const size_t size)
   size_t idx = 0;
   size_t j = 0;
 
-  if(strlen(fulldir) > 0)
+  if(fulldir && strlen(fulldir) > 0)
     for(i = strlen(fulldir) - 1; i == 0 || i > 0; i--)
       {
 	if(fulldir[i] == '/')
@@ -510,7 +514,7 @@ static void getRel(const char *fulldir, char reldir[], const size_t size)
 
   (void) memset(reldir, 0, size);
 
-  if(found)
+  if(found && fulldir)
     for(i = idx + 1; i < strlen(fulldir); i++)
       {
 	if(j < size)

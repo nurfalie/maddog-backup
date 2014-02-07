@@ -99,9 +99,10 @@ static int isValidId(const char *id)
 {
   size_t i = 0;
 
-  for(i = 0; i < sizeof(users) / sizeof(users[0]); i++)
-    if(strncmp(id, users[i], strlen(users[i])) == 0)
-      return TRUE;
+  if(id)
+    for(i = 0; i < sizeof(users) / sizeof(users[0]); i++)
+      if(strncmp(id, users[i], strlen(users[i])) == 0)
+	return TRUE;
 
   return FALSE;
 }
@@ -114,12 +115,18 @@ static int passwdSet(const char *path, const char *userid)
 
   char buffer[BUFF_SIZE];
 
-  (void) snprintf(buffer, sizeof(buffer), "%s/passwd.%s", path, userid);
+  if(path)
+    {
+      (void) snprintf(buffer, sizeof(buffer), "%s/passwd.%s", path,
+		      userid ? userid : "user");
 
-  if(access(buffer, F_OK) != 0)
-    return FALSE;
+      if(access(buffer, F_OK) != 0)
+	return FALSE;
+      else
+	return TRUE;
+    }
   else
-    return TRUE;
+    return FALSE;
 }
 
 static void passwdInit(const int new_id, const char *userid)
@@ -142,7 +149,8 @@ static void passwdInit(const int new_id, const char *userid)
   (void) printf("<tr>\n");
   (void) printf("<td bgcolor=\"beige\">\n");
   (void) printf("<form action=\"%s/display_files.cgi?%s&%d\" "
-		"method=\"post\">\n", CGI_DIR, userid, SORTBY_NAME);
+		"method=\"post\">\n", CGI_DIR, userid ? userid : "user",
+		SORTBY_NAME);
   (void) printf("Password<br><input type=\"password\" size=32 maxlength=32 "
 		"name=\"pass\" value=\"\"><br>\n");
 
