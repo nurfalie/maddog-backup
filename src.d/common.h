@@ -460,8 +460,8 @@ void displayFiles(const char *userid, const int sortby)
 	else
 	  (void) printf("<th>&nbsp</th>\n");
 
-	(void) printf("<th align=left>&nbsp%s%ld%s\n",
-		      FBEG, files[i].size, FEND);
+	(void) printf("<th align=left>&nbsp%s%lu%s\n",
+		      FBEG, (unsigned long) files[i].size, FEND);
 	(void) printf("</tr>\n");
       }
 

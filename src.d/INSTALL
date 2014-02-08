@@ -1,8 +1,12 @@
-Mad Dog Backup System's was tested successfully on Alpha FreeBSD 4.11 and
-Alpha FreeBSD 5.4 using gcc versions 2.95.4 20020320 and 3.4.2 20040728.
+Mad Dog Backup System's was initially tested successfully on
+Alpha FreeBSD 4.11 and Alpha FreeBSD 5.4 using gcc versions
+2.95.4 20020320 and 3.4.2 20040728.
 
-As of 11/21/2007, Mad Dog Backup System was also successfully deployed
+As of 11/21/2007, Mad Dog Backup System was successfully deployed
 on Debian Sparc64 using gcc version 4.1.2 20061115.
+
+As of 02/08/2014, Mad Dog Backup System was deployed on Debian x86_64
+using gcc 4.6.3.
 
 1.  Installation requires Perl. Please determine where Perl resides on your
     system and modify the install.pl and upload_script.pl files accordingly.
@@ -17,11 +21,11 @@ on Debian Sparc64 using gcc version 4.1.2 20061115.
     your system's crontab file.
 6.  Modify the index.sample.html file, rename it to index.html, and
     place it in Mad Dog Backup System's home directory.
-7.  Modify the Makefile accordingly.
+7.  Modify Makefile accordingly.
 8.  Modify the variable upload_dir in the upload_script.pl file accordingly.
-9.  Run make and make install.
+9.  Execute make and make install.
 10. If desired, the directory /var/www/maddog-backup.d may be configured as
     a symbolic link.
-11  You should remove Indexes from the <Directory DocumentRoot>.
+11  For Apache, you should remove Indexes from the <Directory DocumentRoot>.
 12. Upload.pm should be installed under Perl's CGI sub-directory.
 13. Test.
