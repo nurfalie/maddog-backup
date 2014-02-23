@@ -9,7 +9,6 @@ all:	add_file \
 -include ./Makefile.tmp
 
 GCC		=	gcc
-
 GCC_OPTIONS	=	-Wall -Werror -Wextra -Wstack-protector \
 			-fPIE -fstack-protector-all \
 	                -pedantic -pie $(LDEFINES)
