@@ -1,9 +1,9 @@
 #!/usr/bin/perl -W
 # Alexis Megas (c) 2004.
 
-use POSIX;
 use File::Path;
 use File::stat;
+use POSIX;
 
 # Macros.
 
