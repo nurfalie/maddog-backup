@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
 		      if(tmp[i] == '-')
 			{
 			  j = 0;
+			  (void) memset(dirname, 0, sizeof(dirname));
 			  (void) snprintf(dirname, sizeof(dirname), "%s",
 					  buffer);
 			  (void) memset(buffer, 0, sizeof(buffer));
@@ -64,10 +65,13 @@ int main(int argc, char *argv[])
 		    fnd = 1;
 		}
 
+	      (void) memset(filename, 0, sizeof(filename));
 	      (void) snprintf(filename, sizeof(filename), "%s", buffer);
+	      (void) memset(renameto, 0, sizeof(renameto));
 	      (void) snprintf(renameto, sizeof(renameto),
 			      "%s/%s/files/deleted/delete.%s",
 			      BACKUP_DIR, argv[1], filename);
+	      (void) memset(renamefrom, 0, sizeof(renamefrom));
 	      (void) snprintf(renamefrom, sizeof(renamefrom),
 			      "%s/%s/files/%s/%s",
 			      BACKUP_DIR, argv[1], dirname, filename);

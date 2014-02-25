@@ -121,10 +121,12 @@ void displayFiles(const char *userid, const int sortby)
   if((tmp = getenv("REMOTE_ADDR")) == 0)
     tmp = "1";
 
+  (void) memset(buffer, 0, sizeof(buffer));
   (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s.%s",
 		  BACKUP_DIR, userid, tmp);
-  (void) fchmod(creat(buffer, (mode_t) (O_CREAT | O_TRUNC)),
-		(mode_t) (S_IRUSR | S_IWUSR));
+  (void) fchmod
+    (creat(buffer, (mode_t) (O_CREAT | O_TRUNC)), (mode_t) (S_IRUSR |
+							    S_IWUSR));
 
   if(userid && strcmp(userid, "admin") == 0)
     adminmode = TRUE;
@@ -161,6 +163,7 @@ void displayFiles(const char *userid, const int sortby)
 
   if(adminmode == TRUE)
     {
+      (void) memset(buffer, 0, sizeof(buffer));
       (void) snprintf(buffer, sizeof(buffer), "%s/data", BACKUP_DIR);
 
       if((dirp1 = opendir(buffer)) != 0)
@@ -188,6 +191,7 @@ void displayFiles(const char *userid, const int sortby)
 		 strcmp(dirent1->d_name, "..") == 0))
 	      if(strncmp(dirent1->d_name, "passwd", 6) == 0)
 		{
+		  (void) memset(buffer, 0, sizeof(buffer));
 		  (void) snprintf(buffer, sizeof(buffer), "%s/data/%s",
 				  BACKUP_DIR, dirent1->d_name);
 
@@ -256,6 +260,7 @@ void displayFiles(const char *userid, const int sortby)
   ** Read all of the files and create tables for them.
   */
 
+  (void) memset(buffer, 0, sizeof(buffer));
   (void) snprintf(buffer, sizeof(buffer), "%s/%s/files", BACKUP_DIR,
 		  userid ? userid : "user");
 
@@ -268,6 +273,7 @@ void displayFiles(const char *userid, const int sortby)
 	if(!(strcmp(dirent1->d_name, ".") == 0 ||
 	     strcmp(dirent1->d_name, "..") == 0))
 	  {
+	    (void) memset(buffer, 0, sizeof(buffer));
 	    (void) snprintf(buffer, sizeof(buffer), "%s/%s/files/%s",
 			    BACKUP_DIR, userid ? userid : "user",
 			    dirent1->d_name);
@@ -312,6 +318,7 @@ void displayFiles(const char *userid, const int sortby)
 	if(!(strcmp(dirent1->d_name, ".") == 0 ||
 	     strcmp(dirent1->d_name, "..") == 0))
 	  {
+	    (void) memset(buffer, 0, sizeof(buffer));
 	    (void) snprintf(buffer, sizeof(buffer), "%s/%s/files/%s",
 			    BACKUP_DIR, userid ? userid : "user",
 			    dirent1->d_name);
@@ -330,6 +337,8 @@ void displayFiles(const char *userid, const int sortby)
 		      files[i].deleted = deleted;
 		      (void) memset(reldir, 0, sizeof(reldir));
 		      getRel(BACKUP_DIR, reldir, sizeof(reldir));
+		      (void) memset(files[i].location, 0,
+				    sizeof(files[i].location));
 
 		      if(strlen(reldir) > 0)
 			(void) snprintf(files[i].location,
@@ -337,12 +346,16 @@ void displayFiles(const char *userid, const int sortby)
 					"../../%s/%s/files/%s/%s",
 					reldir, userid ? userid : "user",
 					dirent1->d_name, dirent2->d_name);
+
 		      else
 			(void) snprintf(files[i].location,
 					sizeof(files[0].location),
 					"../../%s/files/%s/%s",
 					userid ? userid : "user",
 					dirent1->d_name, dirent2->d_name);
+
+		      (void) memset(files[i].dirname, 0,
+				    sizeof(files[i].dirname));
 
 		      if(deleted > 0)
 			(void) snprintf(files[i].dirname,
@@ -353,9 +366,12 @@ void displayFiles(const char *userid, const int sortby)
 					sizeof(files[0].dirname), "%s",
 					dirent1->d_name);
 
+		      (void) memset(files[i].shortname, 0,
+				    sizeof(files[i].shortname));
 		      (void) snprintf(files[i].shortname,
 				      sizeof(files[0].shortname), "%s",
 				      dirent2->d_name);
+		      (void) memset(buffer, 0, sizeof(buffer));
 		      (void) snprintf(buffer,
 				      sizeof(buffer),
 				      "%s/%s/files/%s/%s",
@@ -444,6 +460,7 @@ void displayFiles(const char *userid, const int sortby)
 
 	(void) printf("<th align=left>&nbsp%s%s%s</th>\n", FBEG,
 		      files[i].dirname, FEND);
+	(void) memset(newdate, 0, sizeof(newdate));
 
 	if((tmstr = localtime(&files[i].date)) != 0)
 	  (void) strftime(newdate, sizeof(newdate),
@@ -491,7 +508,7 @@ void displayFiles(const char *userid, const int sortby)
   (void) printf("</form>\n");
 }
 
-static void getRel(const char *fulldir, char reldir[], const size_t size)
+static void getRel(const char *fulldir, char *reldir, const size_t size)
 {
   int found = 0;
   size_t i = 0;
@@ -512,9 +529,10 @@ static void getRel(const char *fulldir, char reldir[], const size_t size)
 	  break;
       }
 
-  (void) memset(reldir, 0, size);
+  if(reldir)
+    (void) memset(reldir, 0, size);
 
-  if(found && fulldir)
+  if(found && fulldir && reldir)
     for(i = idx + 1; i < strlen(fulldir); i++)
       {
 	if(j < size)

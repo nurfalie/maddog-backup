@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 {
   char buffer[BUFF_SIZE];
   char *tmp = 0;
-  mode_t mode;
+  mode_t mode = 0;
 
   (void) printf("Content-type: text/html\n\n");
   (void) printf("<html><body>");
@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
       if((tmp = getenv("REMOTE_ADDR")) == 0)
 	tmp = "1";
 
+      (void) memset(buffer, 0, sizeof(buffer));
       (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s.%s",
 		      BACKUP_DIR, argv[1], tmp);
 
@@ -64,6 +65,7 @@ int main(int argc, char *argv[])
 
 	  if(isValidId(argv[1]) == TRUE)
 	    {
+	      (void) memset(buffer, 0, sizeof(buffer));
 	      (void) snprintf(buffer, sizeof(buffer), "%s/data",
 			      BACKUP_DIR);
 
@@ -116,6 +118,7 @@ static int passwdSet(const char *path, const char *userid)
 
   if(path)
     {
+      (void) memset(buffer, 0, sizeof(buffer));
       (void) snprintf(buffer, sizeof(buffer), "%s/passwd.%s", path,
 		      userid ? userid : "user");
 

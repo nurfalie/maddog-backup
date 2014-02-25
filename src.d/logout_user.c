@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
       if((tmp1 = getenv("REMOTE_ADDR")) == 0)
 	tmp1 = "1";
 
+      (void) memset(buffer, 0, sizeof(buffer));
       (void) snprintf(buffer, sizeof(buffer), "%s/data/bcksys.loggedin.%s.%s",
 		      BACKUP_DIR, tmp2, tmp1);
       (void) remove(buffer);

@@ -68,6 +68,7 @@ int main(int argc, char *argv[])
       if((tmp1 = getenv("REMOTE_ADDR")) == 0)
 	tmp1 = one;
 
+      (void) memset(buffer, 0, sizeof(buffer));
       (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s."
 		      "%s", BACKUP_DIR, argv[1], tmp1);
 
@@ -81,6 +82,7 @@ int main(int argc, char *argv[])
 
   if(set == 0)
     {
+      (void) memset(buffer, 0, sizeof(buffer));
       (void) memset(indata, 0, sizeof(indata));
       (void) snprintf(buffer, sizeof(buffer), "%s/data/passwd.%s",
 		      BACKUP_DIR, argv[1]);
@@ -150,8 +152,10 @@ int main(int argc, char *argv[])
 
 		  mode = (mode_t) PERMISSIONS;
 		  (void) umask(~mode);
+		  (void) memset(buffer, 0, sizeof(buffer));
 		  (void) snprintf(buffer, sizeof(buffer), "%s/%s/files",
 				  BACKUP_DIR, argv[1]);
+		  (void) memset(deldir, 0, sizeof(deldir));
 		  (void) snprintf(deldir, sizeof(deldir),
 				  "%s/%s/files/deleted",
 				  BACKUP_DIR, argv[1]);

@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
       ** Add the file names to the Selection List.
       */
 
+      (void) memset(buffer, 0, sizeof(buffer));
       (void) snprintf(buffer, sizeof(buffer), "%s/%s/files", BACKUP_DIR,
 		      argv[1]);
 
@@ -62,6 +63,7 @@ int main(int argc, char *argv[])
 	    if(!(strcmp(dirent1->d_name, ".") == 0 ||
 		 strcmp(dirent1->d_name, "..") == 0))
 	      {
+		(void) memset(buffer, 0, sizeof(buffer));
 		(void) snprintf(buffer, sizeof(buffer), "%s/%s/files/%s",
 				BACKUP_DIR, argv[1], dirent1->d_name);
 
@@ -69,7 +71,7 @@ int main(int argc, char *argv[])
 		  while((dirent2 = readdir(dirp2)) != 0)
 		    if(!(strcmp(dirent2->d_name, ".") == 0 ||
 			 strcmp(dirent2->d_name, "..") == 0 ||
-			 strncmp(dirent2->d_name, "delete.", (size_t) 7) == 0))
+			 strncmp(dirent2->d_name, "delete.", 7) == 0))
 		      {
 			(void) printf("<option>%s</option>\n",
 				      dirent1->d_name);
