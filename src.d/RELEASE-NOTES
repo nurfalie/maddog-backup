@@ -3,7 +3,8 @@
 1. Added Wconversion and Wformat compiler flags.
 2. Clear buffers prior to issuing snprint().
 3. Corrected printf() formats.
-4. The shell scripts shall exit with success.
+4. Removed Werror.
+5. The shell scripts shall exit with success.
 
 2.2.5 (02/06/2014)
 

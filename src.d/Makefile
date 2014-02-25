@@ -8,13 +8,11 @@ all:	add_file \
 
 -include ./Makefile.tmp
 
-GCC		=	gcc
-GCC_OPTIONS	=	-Wall -Wconversion -Werror -Wextra -Wformat \
-			-Wstack-protector \
-			-fPIE -fstack-protector-all \
-	                -pedantic -pie $(LDEFINES)
-INC		=	-I/usr/include -I/usr/local/include
-INCLUDES	=	common.h
+GCC		= gcc
+GCC_OPTIONS	= -Wall -Wconversion -Wextra -Wformat -Wstack-protector \
+		  -fPIE -fstack-protector-all -pedantic -pie $(LDEFINES)
+INC		= -I/usr/include -I/usr/local/include
+INCLUDES	= common.h
 LIB		=
 
 ADD_FILE_SRC		=	add_file.c
