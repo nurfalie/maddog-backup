@@ -256,22 +256,22 @@ $homeurl = $val;
 
 # Makefile.tmp string.
 
-$makefile_tmp = "INSTALL_OPS = -o " . $usernam . " -g " . $groupnam . "\n" .
-    "CGI_PATH = " . $cgidir . "\n" .
+$makefile_tmp = "CGI_PATH = " . $cgidir . "\n" .
+    "INSTALL_OPS = -o " . $usernam . " -g " . $groupnam . "\n" .
     "LDEFINES = -DBACKUP_DIR='\"" . $backupdir . "\"'\\\n" .
     "-DCGI_DIR='\"" . $cgiurl . "\"'\\\n" .
     "-DHOME='\"" . $homeurl . "\"'\n" .
     "\n" .
     "install:\n" .
     "\t\$(INSTALL) \$(INSTALL_OPS) add_file \$(CGI_PATH)/add_file.cgi\n" .
-    "\t\$(INSTALL) \$(INSTALL_OPS) logout_user \$(CGI_PATH)/" .
-    "logout_user.cgi\n" .
-    "\t\$(INSTALL) \$(INSTALL_OPS) lookup_user \$(CGI_PATH)/" .
-    "lookup_user.cgi\n" .
     "\t\$(INSTALL) \$(INSTALL_OPS) delete_files \$(CGI_PATH)/" .
     "delete_files.cgi\n" .
     "\t\$(INSTALL) \$(INSTALL_OPS) display_files \$(CGI_PATH)/" .
     "display_files.cgi\n" .
+    "\t\$(INSTALL) \$(INSTALL_OPS) logout_user \$(CGI_PATH)/" .
+    "logout_user.cgi\n" .
+    "\t\$(INSTALL) \$(INSTALL_OPS) lookup_user \$(CGI_PATH)/" .
+    "lookup_user.cgi\n" .
     "\t\$(INSTALL) \$(INSTALL_OPS) upload_script.pl \$(CGI_PATH)\n";
 
 # It's OK if the file is owned by the privileged user.
