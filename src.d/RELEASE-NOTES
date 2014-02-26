@@ -1,6 +1,6 @@
 2.2.6 (02/28/2014)
 
-1. Added the Wformat and ansi compiler flags.
+1. Added the Wformat compiler flag.
 2. Clear buffers prior to issuing snprint().
 3. Corrected printf() formats.
 4. The shell scripts shall exit with success.
