@@ -9,8 +9,8 @@ all:	add_file \
 -include ./Makefile.tmp
 
 GCC		= gcc
-GCC_OPTIONS	= -Wall -Wconversion -Wextra -Wformat -Wstack-protector \
-		  -fPIE -fstack-protector-all -pedantic -pie $(LDEFINES)
+GCC_OPTIONS	= -Wall -Werror -Wextra -Wformat -Wstack-protector \
+		  -ansi -fPIE -fstack-protector-all -pedantic -pie $(LDEFINES)
 INC		= -I/usr/include -I/usr/local/include
 INCLUDES	= common.h
 LIB		=
