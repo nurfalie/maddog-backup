@@ -117,6 +117,7 @@ int main(int argc, char *argv[])
 		    (void) printf(ERROR, __LINE__, __FILE__, HOME);
 
 		  (void) fclose(fp);
+		  fp = 0;
 		}
 	      else
 		(void) printf(ERROR, __LINE__, __FILE__, HOME);
@@ -145,6 +146,7 @@ int main(int argc, char *argv[])
 		    (void) printf(ERROR, __LINE__, __FILE__, HOME);
 
 		  (void) fclose(fp);
+		  fp = 0;
 
 		  /*
 		  ** Create the files and deleted directories.

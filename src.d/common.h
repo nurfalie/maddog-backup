@@ -211,6 +211,7 @@ void displayFiles(const char *userid, const int sortby)
 
 		      (void) printf("</tr>\n");
 		      (void) fclose(fp);
+		      fp = 0;
 		    }
 		}
 
