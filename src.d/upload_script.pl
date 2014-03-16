@@ -15,7 +15,12 @@ my $upload = CGI::Upload->new;
 my $userid = $cgi->param("userid");
 my $where_to = $cgi->param("files");
 my $file_name = $upload->file_name("uploaded");
-my $upload_dir = "/var/www/maddog-backup.d/$userid/files";
+my $upload_dir = "";
+
+if($userid)
+{
+    upload_dir = "/data/var/www/maddog-backup.d/" . $userid . "/files";
+}
 
 # Remove special characters from the filename.
 
