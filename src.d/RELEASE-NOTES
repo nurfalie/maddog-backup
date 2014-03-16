@@ -1,3 +1,8 @@
+2.2.8 (03/21/2014)
+
+1. Test $userid in upload_script.pl.
+2. Updated the CGI-Upload bundle to version 1.11.
+
 2.2.7 (03/14/2014)
 
 1. Set fp variables to zero after issuing fclose().

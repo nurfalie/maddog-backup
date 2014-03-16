@@ -19,7 +19,7 @@ my $upload_dir = "";
 
 if($userid)
 {
-    upload_dir = "/data/var/www/maddog-backup.d/" . $userid . "/files";
+    $upload_dir = "/data/var/www/maddog-backup.d/$userid/files";
 }
 
 # Remove special characters from the filename.

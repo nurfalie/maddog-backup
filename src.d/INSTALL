@@ -28,4 +28,5 @@ using gcc 4.6.3.
     a symbolic link.
 11  For Apache, you should remove Indexes from the <Directory DocumentRoot>.
 12. Upload.pm should be installed under Perl's CGI sub-directory.
-13. Test.
+13. Install libfile-mmagic-perl and libhttp-browserdetect-perl.
+14. Test.
