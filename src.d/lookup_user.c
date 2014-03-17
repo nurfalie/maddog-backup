@@ -158,7 +158,7 @@ static void passwdInit(const int new_id, const char *userid)
 		"name=\"pass\" value=\"\"><br>\n");
 
   if(new_id == TRUE)
-    (void) printf("Retype Password<br><input type=\"password\" size=32 "
+    (void) printf("Password Confirmation<br><input type=\"password\" size=32 "
 		  "maxlength=32 name=\"pass\" value=\"\"><br>\n");
 
   (void) printf("</td></tr><tr bgcolor=\"beige\" align=center><td>\n");

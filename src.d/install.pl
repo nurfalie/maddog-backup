@@ -339,14 +339,13 @@ while(($str = <INPUT>))
 
 	    if($userid)
 	    {
-		umask(~0770);
 		$userdir = $backupdir . "/" . $userid . "/files/deleted";
 
 		if(-d $userdir)
 		{
 		    printf("%s exists. Skipping.\n", $userdir);
 		}
-		elsif(!mkpath($userdir, 0770))
+		elsif(!mkpath($userdir, 0777))
 		{
 		    printf("Unable to create %s.\n", $userdir);
 		}
