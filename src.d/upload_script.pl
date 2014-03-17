@@ -30,7 +30,18 @@ if($file_name)
 
     if($where_to eq "New File")
     {
-	mkdir("$upload_dir/$file_name.d", 0770);
+	if(!mkdir("$upload_dir/$file_name.d", 0770))
+	{
+	    $error = 1;
+	    print("<center>Cannot make a directory. Upload failed." .
+		  "<hr>" .
+		  "| <a href=\"javascript:history.go(-1)\">Back</a> | " .
+		  "<a href=\"javascript:window.close()\">Close</a> |\n" .
+		  "</center>");
+	    print("</body>\n");
+	    print("</html>\n");
+	    return;
+	}
 
 	if(!chdir("$upload_dir/$file_name.d"))
 	{
@@ -40,6 +51,8 @@ if($file_name)
 		  "| <a href=\"javascript:history.go(-1)\">Back</a> | " .
 		  "<a href=\"javascript:window.close()\">Close</a> |\n" .
 		  "</center>");
+	    print("</body>\n");
+	    print("</html>\n");
 	    return;
 	}
     }
@@ -53,13 +66,27 @@ if($file_name)
 		  "| <a href=\"javascript:history.go(-1)\">Back</a> | " .
 		  "<a href=\"javascript:window.close()\">Close</a> |\n" .
 		  "</center>");
+	    print("</body>\n");
+	    print("</html>\n");
 	    return;
 	}
     }
 
     my $SIZE = 7;
     my $file_handle = $upload->file_handle("uploaded");
-    open(UPLOADFILE, ">" . $datetime . $file_name);
+
+    if(!open(UPLOADFILE, ">" . $datetime . $file_name))
+    {
+	$error = 1;
+	print("<center>Cannot open the destination file. Upload failed." .
+	      "<hr>" .
+	      "| <a href=\"javascript:history.go(-1)\">Back</a> | " .
+	      "<a href=\"javascript:window.close()\">Close</a> |\n" .
+	      "</center>");
+	print("</body>\n");
+	print("</html>\n");
+	return;
+    }
 
     while(<$file_handle>)
     {
@@ -69,7 +96,7 @@ if($file_name)
     close(UPLOADFILE);
 
     # If the file's size is not greater than 0 bytes, remove it and notify
-    # the user to upload a valid file.
+    # the user to upload a non-empty file.
 
     if((stat($datetime . $file_name))[$SIZE] > 0)
     {
