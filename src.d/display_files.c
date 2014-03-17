@@ -27,10 +27,10 @@ int main(int argc, char *argv[])
   int sortby = SORTBY_NAME;
   mode_t mode;
 
-  (void) userid;
   (void) printf("Content-type: text/html\n\n");
   (void) printf("<html><body>\n");
   (void) printf("<title>Mad Dog Backup System</title>\n");
+  (void) userid;
 
   if(argc > 1 && argv[1] != 0)
     {
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
   else
     set = -1;
 
-  if(set == 0)
+  if(argc > 1 && argv[1] != 0 && set == 0)
     {
       (void) memset(buffer, 0, sizeof(buffer));
       (void) memset(indata, 0, sizeof(indata));

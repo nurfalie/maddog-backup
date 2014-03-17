@@ -37,8 +37,9 @@ int main(int argc, char *argv[])
 	tmp = "1";
 
       (void) memset(buffer, 0, sizeof(buffer));
-      (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s.%s",
-		      BACKUP_DIR, argv[1], tmp);
+      (void) snprintf
+	(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s.%s",
+	 BACKUP_DIR, argv[1], tmp);
 
       if(access(buffer, F_OK) != -1)
 	{

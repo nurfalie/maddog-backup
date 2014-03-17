@@ -123,7 +123,7 @@ void displayFiles(const char *userid, const int sortby)
 
   (void) memset(buffer, 0, sizeof(buffer));
   (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s.%s",
-		  BACKUP_DIR, userid, tmp);
+		  BACKUP_DIR, userid ? userid : "user", tmp);
   (void) fchmod
     (creat(buffer, (mode_t) (O_CREAT | O_TRUNC)), (mode_t) (S_IRUSR |
 							    S_IWUSR));
