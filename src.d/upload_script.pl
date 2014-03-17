@@ -30,7 +30,9 @@ if($file_name)
 
     if($where_to eq "New File")
     {
-	if(!mkdir("$upload_dir/$file_name.d", 0777))
+	umask(~0770); # Please see common.h.
+
+	if(!mkdir("$upload_dir/$file_name.d", 0770))
 	{
 	    $error = 1;
 	    print("<center>Cannot make a directory. Upload failed." .
