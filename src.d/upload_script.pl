@@ -30,6 +30,8 @@ if($file_name)
 
     if($where_to eq "New File")
     {
+	umask(~0770); # Please see common.h.
+
 	if(!mkdir("$upload_dir/$file_name.d", 0770))
 	{
 	    $error = 1;

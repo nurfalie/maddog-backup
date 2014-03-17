@@ -1,9 +1,10 @@
 2.2.8 (03/21/2014)
 
-1. Inspect mkdir() and open() results in upload_script.pl.
-2. Terminate body and html tags in upload_script.pl whenever harsh failures occur.
-3. Test $userid in upload_script.pl.
-4. Updated the CGI-Upload bundle to version 1.11.
+1. Added umask(~0770) in upload_script.pl before issuing mkdir().
+2. Inspect mkdir() and open() results in upload_script.pl.
+3. Terminate body and html tags in upload_script.pl whenever harsh failures occur.
+4. Test $userid in upload_script.pl.
+5. Updated the CGI-Upload bundle to version 1.11.
 
 2.2.7 (03/14/2014)
 
