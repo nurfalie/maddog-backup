@@ -30,9 +30,7 @@ if($file_name)
 
     if($where_to eq "New File")
     {
-	umask(~0770); # Please see common.h.
-
-	if(!mkdir("$upload_dir/$file_name.d", 0770))
+	if(!mkdir("$upload_dir/$file_name.d", 0777))
 	{
 	    $error = 1;
 	    print("<center>Cannot make a directory. Upload failed." .
@@ -42,7 +40,7 @@ if($file_name)
 		  "</center>");
 	    print("</body>\n");
 	    print("</html>\n");
-	    return;
+	    exit 1;
 	}
 
 	if(!chdir("$upload_dir/$file_name.d"))
@@ -55,7 +53,7 @@ if($file_name)
 		  "</center>");
 	    print("</body>\n");
 	    print("</html>\n");
-	    return;
+	    exit 1;
 	}
     }
     else
@@ -70,7 +68,7 @@ if($file_name)
 		  "</center>");
 	    print("</body>\n");
 	    print("</html>\n");
-	    return;
+	    exit 1;
 	}
     }
 
@@ -87,7 +85,7 @@ if($file_name)
 	      "</center>");
 	print("</body>\n");
 	print("</html>\n");
-	return;
+	exit 1;
     }
 
     while(<$file_handle>)
