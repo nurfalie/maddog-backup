@@ -288,6 +288,8 @@ close(OUTPUT);
 
 # Create the password directory.
 
+umask(~0770);
+
 if(-d $backupdir . "/data")
 {
     printf("%s already exists. Skipping.\n", $backupdir . "/data");
