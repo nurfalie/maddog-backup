@@ -292,7 +292,7 @@ if(-d $backupdir . "/data")
 {
     printf("%s already exists. Skipping.\n", $backupdir . "/data");
 }
-elsif(!mkdir($backupdir . "/data", 0777))
+elsif(!mkdir($backupdir . "/data", 0770))
 {
     printf("Unable to create %s. Exiting.\n", $backupdir . "/data");
 }
@@ -345,7 +345,7 @@ while(($str = <INPUT>))
 		{
 		    printf("%s exists. Skipping.\n", $userdir);
 		}
-		elsif(!mkpath($userdir, 0777))
+		elsif(!mkpath($userdir, 0770))
 		{
 		    printf("Unable to create %s.\n", $userdir);
 		}
