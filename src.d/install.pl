@@ -338,7 +338,7 @@ while(($str = <INPUT>))
 
 	    if($userid)
 	    {
-		$userdir = $backupdir . "/" . $userid . "/files/deleted";
+		$userdir = $backupdir . "/" . $userid . "/files";
 
 		if(-d $userdir)
 		{
