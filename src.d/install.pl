@@ -350,29 +350,34 @@ while(($str = <INPUT>))
 		    printf("Unable to create %s.\n", $userdir);
 		}
 
-		$userdir = $backupdir . "/" . $userid;
+		@dirs = ($backupdir . "/" . $userid,
+			 $backupdir . "/" . $userid . "/files",
+			 $backupdir . "/" . $userid . "/files/deleted");
 
-		if(!($info = stat($userdir)))
+		foreach $dir (@dirs)
 		{
-		    printf("Unable to stat() %s.\n", $userdir);
-		}
-		elsif((getpwnam($usernam))[2] != $info->uid ||
-		      (getgrnam($groupnam))[2] != $info->gid)
-		{
-		    if(!chown((getpwnam($usernam))[2],
-			      (getgrnam($groupnam))[2], $userdir))
+		    if(!($info = stat($dir)))
 		    {
-			printf("Unable to chown() %s.\n", $userdir);
+			printf("Unable to stat() %s.\n", $dir);
+		    }
+		    elsif((getpwnam($usernam))[2] != $info->uid ||
+			  (getgrnam($groupnam))[2] != $info->gid)
+		    {
+			if(!chown((getpwnam($usernam))[2],
+				  (getgrnam($groupnam))[2], $dir))
+			{
+			    printf("Unable to chown() %s.\n", $dir);
+			}
+			else
+			{
+			    printf("Changed permissions for %s.\n", $dir);
+			}
 		    }
 		    else
 		    {
-			printf("Changed permissions for %s.\n", $userdir);
+			printf("%s appears to have the correct permissions. " .
+			       "Skipping.\n", $dir);
 		    }
-		}
-		else
-		{
-		    printf("%s appears to have the correct permissions. " .
-			   "Skipping.\n", $userdir);
 		}
 	    }
 	}
