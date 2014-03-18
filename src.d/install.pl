@@ -349,7 +349,7 @@ while(($str = <INPUT>))
 		    printf("Unable to create %s.\n", $userdir);
 		}
 
-		$userid = $backupdir . "/" . $userid;
+		$userdir = $backupdir . "/" . $userid;
 
 		if(!($info = stat($userdir)))
 		{
