@@ -338,6 +338,7 @@ while(($str = <INPUT>))
 
 	    if($userid)
 	    {
+		umask(~0770);
 		$userdir = $backupdir . "/" . $userid . "/files/deleted";
 
 		if(-d $userdir)
