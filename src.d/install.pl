@@ -390,3 +390,4 @@ while(($str = <INPUT>))
 }
 
 close(INPUT);
+exit($EXIT_SUCCESS);

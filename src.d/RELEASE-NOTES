@@ -1,109 +1,111 @@
 2.2.8 (03/21/2014)
 
-1. Added umask(~0770) in upload_script.pl before issuing mkdir().
-2. Corrected permissions in install.pl. User directories should
-   not be accessible by other.
-3. Guard against empty pointers.
-4. Inspect argv[].
-5. Inspect mkdir() and open() results in upload_script.pl.
-6. Terminate body and html tags in upload_script.pl whenever harsh
-   failures occur.
-7. Test $userid in upload_script.pl.
-8. Updated the CGI-Upload bundle to version 1.11.
+1.  Added umask(~0770) in upload_script.pl before mkdir().
+2.  Corrected permissions in install.pl. User directories should
+    only be accessible by the designated account and group.
+3.  Guard against empty pointers.
+4.  If necessary, provide a successful exit code in install.pl.
+5.  Inspect argv[].
+6.  Inspect mkdir() and open() results in upload_script.pl.
+7.  Provide an exit code in upload_script.pl.
+8.  Terminate body and html tags in upload_script.pl whenever harsh
+    failures occur.
+9.  Test $userid in upload_script.pl.
+10. Updated the CGI-Upload bundle to version 1.11.
 
 2.2.7 (03/14/2014)
 
-1. Set fp variables to zero after issuing fclose().
+1.  Set fp variables to zero after issuing fclose().
 
 2.2.6 (02/28/2014)
 
-1. Added the Wformat compiler flag.
-2. Clear buffers prior to issuing snprint().
-3. Corrected printf() formats.
-4. The shell scripts shall exit with success.
+1.  Added the Wformat compiler flag.
+2.  Clear buffers prior to issuing snprint().
+3.  Corrected printf() formats.
+4.  The shell scripts shall exit with success.
 
 2.2.5 (02/06/2014)
 
-1. Guard against empty pointers.
+1.  Guard against empty pointers.
 
 2.2.4 (02/02/2014)
 
-1. Corrected arguments to fgets(). (fgets() reads at most size - 1 characters.)
-2. Redefined some integer variables to be of type size_t.
+1.  Corrected arguments to fgets(). (fgets() reads at most size - 1 characters.)
+2.  Redefined some integer variables to be of type size_t.
 
 2.2.3 (02/01/2014)
 
-1. Protect array boundaries.
-2. The function displayFiles() incorrectly assumed that the contents of
-   directories remained static. A potential array overflow could occur as
-   a result. Corrected.
+1.  Protect array boundaries.
+2.  The function displayFiles() incorrectly assumed that the contents of
+    directories remained static. A potential array overflow could occur as
+    a result. Corrected.
 
 2.2.2 (09/03/2013)
 
-1. Added PIE and stack-smashing protection.
+1.  Added PIE and stack-smashing protection.
 
 2.2.1 (04/09/2012)
 
-1. Corrected compiler warnings.
-2. Removed compression.
+1.  Corrected compiler warnings.
+2.  Removed compression.
 
 2.2.0 (01/04/2011)
 
-1. A lint-based release.
-2. Version remains at 2.2.0.
+1.  A lint-based release.
+2.  Version remains at 2.2.0.
 
 2.2.0 (12/17/2009)
 
-1. Corrected and simplified the installation.
-2. Improved the install.pl file.
-3. Version remains at 2.2.0.
+1.  Corrected and simplified the installation.
+2.  Improved the install.pl file.
+3.  Version remains at 2.2.0.
 
 2.2.0 (11/22/2007)
 
-1. Enhanced the INSTALL document.
-2. Introduced alternating row colors.
-3. Resolved an issue with a closedir() call.
+1.  Enhanced the INSTALL document.
+2.  Introduced alternating row colors.
+3.  Resolved an issue with a closedir() call.
 
 2.1.0 (10/30/2006)
 
-1. Some user interface improvements.
+1.  Some user interface improvements.
 
 2.0.0 (10/29/2006)
 
-1. An improvement. Deleted files will now be stored in username/files/deleted.
-2. Version remains at 2.0.0.
+1.  An improvement. Deleted files will now be stored in username/files/deleted.
+2.  Version remains at 2.0.0.
 
 2.0.0 (07/31/2005)
 
-1. Major bug fix. Actually allow new users to add files.
-2. Version remains at 2.0.0.
+1.  Major bug fix. Actually allow new users to add files.
+2.  Version remains at 2.0.0.
 
 2.0.0 (01/09/2005)
 
-1. Minor bug fix. Check the value returned by strtok().
-2. Version remains at 2.0.0.
+1.  Minor bug fix. Check the value returned by strtok().
+2.  Version remains at 2.0.0.
 
 2.0.0 (01/09/2005)
 
-1. Users can now sort by archival date, name, or size.
+1.  Users can now sort by archival date, name, or size.
 
 1.0.0 (01/04/2005)
 
-1. Fixed common.h. Error prevented files from being retrieved from the
-   correct directory.
-2. Version remains at 1.0.0.
+1.  Fixed common.h. Error prevented files from being retrieved from the
+    correct directory.
+2.  Version remains at 1.0.0.
 
 1.0.0 (12/29/2004)
 
-1. Fixed the USERS.dat file, again.
-2. Removed hard-coded "http://193.168.0.5" instance from common.h.
-3. Version remains at 1.0.0.
+1.  Fixed the USERS.dat file, again.
+2.  Removed hard-coded "http://193.168.0.5" instance from common.h.
+3.  Version remains at 1.0.0.
 
 1.0.0 (12/28/2004)
 
-1. Fixed the USERS.dat file.
-2. Version remains at 1.0.0.
+1.  Fixed the USERS.dat file.
+2.  Version remains at 1.0.0.
 
 1.0.0 (09/12/2004)
 
-1. Initial release.
+1.  Initial release.

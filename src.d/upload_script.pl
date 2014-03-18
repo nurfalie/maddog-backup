@@ -30,7 +30,7 @@ if($file_name)
 
     if($where_to eq "New File")
     {
-	umask(~0770); # Please see common.h.
+	umask(~0770);
 
 	if(!mkdir("$upload_dir/$file_name.d", 0770))
 	{
@@ -40,9 +40,7 @@ if($file_name)
 		  "| <a href=\"javascript:history.go(-1)\">Back</a> | " .
 		  "<a href=\"javascript:window.close()\">Close</a> |\n" .
 		  "</center>");
-	    print("</body>\n");
-	    print("</html>\n");
-	    exit 1;
+	    goto end_label;
 	}
 
 	if(!chdir("$upload_dir/$file_name.d"))
@@ -53,9 +51,7 @@ if($file_name)
 		  "| <a href=\"javascript:history.go(-1)\">Back</a> | " .
 		  "<a href=\"javascript:window.close()\">Close</a> |\n" .
 		  "</center>");
-	    print("</body>\n");
-	    print("</html>\n");
-	    exit 1;
+	    goto end_label;
 	}
     }
     else
@@ -68,9 +64,7 @@ if($file_name)
 		  "| <a href=\"javascript:history.go(-1)\">Back</a> | " .
 		  "<a href=\"javascript:window.close()\">Close</a> |\n" .
 		  "</center>");
-	    print("</body>\n");
-	    print("</html>\n");
-	    exit 1;
+	    goto end_label;
 	}
     }
 
@@ -85,9 +79,7 @@ if($file_name)
 	      "| <a href=\"javascript:history.go(-1)\">Back</a> | " .
 	      "<a href=\"javascript:window.close()\">Close</a> |\n" .
 	      "</center>");
-	print("</body>\n");
-	print("</html>\n");
-	exit 1;
+	goto end_label;
     }
 
     while(<$file_handle>)
@@ -134,8 +126,7 @@ else
 	  "</center>");
 }
 
-END_LABEL:
-
+end_label:
 print("</body>\n");
 print("</html>\n");
 
@@ -149,3 +140,5 @@ if($error == 0)
 	  "this.window.opener.window.location.reload();" .
 	  "</script>");
 }
+
+exit($error);
