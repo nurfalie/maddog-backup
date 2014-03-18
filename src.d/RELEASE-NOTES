@@ -1,13 +1,15 @@
 2.2.8 (03/21/2014)
 
 1. Added umask(~0770) in upload_script.pl before issuing mkdir().
-2. Guard against empty pointers.
-3. Inspect argv[].
-4. Inspect mkdir() and open() results in upload_script.pl.
-5. Terminate body and html tags in upload_script.pl whenever harsh
+2. Corrected permissions in install.pl. User directories should
+   not be accessible by other.
+3. Guard against empty pointers.
+4. Inspect argv[].
+5. Inspect mkdir() and open() results in upload_script.pl.
+6. Terminate body and html tags in upload_script.pl whenever harsh
    failures occur.
-6. Test $userid in upload_script.pl.
-7. Updated the CGI-Upload bundle to version 1.11.
+7. Test $userid in upload_script.pl.
+8. Updated the CGI-Upload bundle to version 1.11.
 
 2.2.7 (03/14/2014)
 

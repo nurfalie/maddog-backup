@@ -287,6 +287,8 @@ close(OUTPUT);
 
 # Create the password directory.
 
+umask(~0770);
+
 if(-d $backupdir . "/data")
 {
     printf("%s already exists. Skipping.\n", $backupdir . "/data");
@@ -338,7 +340,6 @@ while(($str = <INPUT>))
 
 	    if($userid)
 	    {
-		umask(~0770);
 		$userdir = $backupdir . "/" . $userid . "/files/deleted";
 
 		if(-d $userdir)
