@@ -338,7 +338,7 @@ while(($str = <INPUT>))
 
 	    if($userid)
 	    {
-		$userdir = $backupdir . "/" . $userid . "/files";
+		$userdir = $backupdir . "/" . $userid . "/files/deleted";
 
 		if(-d $userdir)
 		{
@@ -348,6 +348,8 @@ while(($str = <INPUT>))
 		{
 		    printf("Unable to create %s.\n", $userdir);
 		}
+
+		$userid = $backupdir . "/" . $userid;
 
 		if(!($info = stat($userdir)))
 		{
