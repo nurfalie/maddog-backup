@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
   FILE *fp = 0;
   char buffer[BUFF_SIZE];
   char deldir[BUFF_SIZE + 7]; /* strlen("deleted") */
-  char indata[128];
+  char indata[BUFF_SIZE];
   char one[] = "1";
   char *tmp1 = 0;
   char *tmp2 = 0;

@@ -8,10 +8,11 @@
 5.  Inspect argv[].
 6.  Inspect mkdir() and open() results in upload_script.pl.
 7.  Provide an exit code in upload_script.pl.
-8.  Terminate body and html tags in upload_script.pl whenever harsh
+8.  Resized indata from 128 to BUFF_SIZE in display_files.c.
+9.  Terminate body and html tags in upload_script.pl whenever harsh
     failures occur.
-9.  Test $userid in upload_script.pl.
-10. Updated the CGI-Upload bundle to version 1.11.
+10  Test $userid in upload_script.pl.
+11. Updated the CGI-Upload bundle to version 1.11.
 
 2.2.7 (03/14/2014)
 
