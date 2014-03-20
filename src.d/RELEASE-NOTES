@@ -1,8 +1,8 @@
-2.2.8 (03/21/2014)
+2.2.8 (03/20/2014)
 
-1.  Added umask(~0770) in upload_script.pl before mkdir().
+1.  Added umask(~0770) before mkdir() in upload_script.pl.
 2.  Corrected permissions in install.pl. User directories should
-    only be accessible by the designated account and group.
+    only be accessible by the designated Apache account and group.
 3.  Guard against empty pointers.
 4.  If necessary, provide a successful exit code in install.pl.
 5.  Inspect argv[].
