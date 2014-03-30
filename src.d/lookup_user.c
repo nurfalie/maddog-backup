@@ -12,7 +12,6 @@
 ** -- Local Globals --
 */
 
-static int isValidId(const char *);
 static int passwdSet(const char *, const char *);
 static void passwdInit(const int, const char *);
 
