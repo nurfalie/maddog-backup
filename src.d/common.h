@@ -102,7 +102,7 @@ int isValidId(const char *id)
 
   if(id)
     for(i = 0; i < sizeof(users) / sizeof(users[0]); i++)
-      if(strncmp(id, users[i], strlen(id))) == 0)
+      if(strncmp(id, users[i], strlen(id)) == 0)
 	return TRUE;
 
   return FALSE;
