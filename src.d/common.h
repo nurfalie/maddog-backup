@@ -44,7 +44,7 @@
 ** -- Numeric Defines --
 */
 
-#define BUFF_SIZE 512
+#define BUFF_SIZE 1024
 #define FALSE 0
 #define PERMISSIONS (S_IRWXU | S_IRWXG)
 #define TRUE 1
@@ -57,8 +57,8 @@
   "<br><a href=\"%s\">Return</a> to the main screen.</center>\n"
 #define FBEG "<font size=3 color=\"wheat\"><b>"
 #define FEND "</b></font>"
-#define SORTBY_DATE 2
-#define SORTBY_NAME 1
+#define SORTBY_DATE 1
+#define SORTBY_NAME 2
 #define SORTBY_SIZE 3
 
 /*
@@ -484,6 +484,7 @@ void displayFiles(const char *userid, const int sortby)
       }
 
  done_label:
+
   if(files != 0)
     {
       free(files);

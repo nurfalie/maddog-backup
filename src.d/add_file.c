@@ -79,10 +79,14 @@ int main(int argc, char *argv[])
 		      }
 
 		if(dirp2 != 0)
-		  (void) closedir(dirp2);
+		  {
+		    (void) closedir(dirp2);
+		    dirp2 = 0;
+		  }
 	      }
 
 	  (void) closedir(dirp1);
+	  dirp1 = 0;
 	}
 
       (void) printf("</select></center>\n");

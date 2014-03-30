@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
   (void) printf("<title>Mad Dog Backup System</title>\n<body>");
   (void) printf("<center>\n");
 
-  if(argc > 1 && argv[1] != 0)
+  if(argc > 1 && argv[1] != 0 && stdin != 0)
     {
       (void) printf("<meta http-equiv=\"refresh\" "
 		    "content=\"5; url=%s/display_files.cgi?"

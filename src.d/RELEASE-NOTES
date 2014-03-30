@@ -1,3 +1,9 @@
+2.2.9 (04/04/2014)
+
+1.  Increased BUFF_SIZE to 1024.
+2.  Replaced some access() instances with stat().
+3.  The variable stdin may be invalid.
+
 2.2.8 (03/20/2014)
 
 1.  Added umask(~0770) before mkdir() in upload_script.pl.

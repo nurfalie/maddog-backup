@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
   int set = 1;
   int sortby = SORTBY_NAME;
   mode_t mode;
+  struct stat stat_buf;
 
   (void) printf("Content-type: text/html\n\n");
   (void) printf("<html><body>\n");
@@ -80,7 +81,7 @@ int main(int argc, char *argv[])
   else
     set = -1;
 
-  if(argc > 1 && argv[1] != 0 && set == 0)
+  if(argc > 1 && argv[1] != 0 && set == 0 && stdin != 0)
     {
       (void) memset(buffer, 0, sizeof(buffer));
       (void) memset(indata, 0, sizeof(indata));
@@ -91,7 +92,7 @@ int main(int argc, char *argv[])
 	(void) printf(ERROR, __LINE__, __FILE__, HOME);
       else
 	{
-	  if(access(buffer, F_OK) == 0)
+	  if(stat(buffer, &stat_buf) == 0)
 	    {
 	      if((fp = fopen(buffer, "r")) != 0)
 		{
@@ -136,7 +137,7 @@ int main(int argc, char *argv[])
 			  "Please "
 			  "<a href=\"%s/lookup_user.cgi?%s\">re-enter</a> "
 			  "your password.</center>\n", CGI_DIR, argv[1]);
-	  else if(access(buffer, F_OK) != 0)
+	  else if(stat(buffer, &stat_buf) != 0)
 	    {
 	      (void) umask((mode_t) ~S_IRWXU);
 
