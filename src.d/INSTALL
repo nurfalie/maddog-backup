@@ -5,7 +5,7 @@ Apache
 Perl
 
 1. Please install Perl. Perl modules required by the upload_script.pl
-   file include: libfile-mmagic-perl, libhttp-browserdetect-perl.
+   file include libfile-mmagic-perl and libhttp-browserdetect-perl.
 2. Please install Upload.pm from CGI-Upload-1.11/lib/CGI into Perl's
    CGI directory.
 3. Verify that the upload_script.pl executes correctly.
@@ -27,4 +27,8 @@ Mad Dog Backup System
 7.  Modify the variable upload_dir in the upload_script.pl file accordingly.
 8.  Execute make and make install.
 9.  If desired, the directory /var/www/maddog-backup.d may be configured as
-    a symbolic link.
+    a symbolic link. For example, if /data/var/www/maddog-backup.d is
+    the location of the repository, create a symbolic link
+    /var/www/maddog-backup such that it references /data/var/www/maddog-backup.
+    Other Apache configurations may exist such that a symbolic link
+    is not necessary.
