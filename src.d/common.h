@@ -106,6 +106,7 @@ void displayFiles(const char *userid, const int sortby)
   char reldir[BUFF_SIZE];
   int adminmode = FALSE;
   int deleted = 0;
+  int fd = -1;
   size_t i = 0;
   size_t ct = 0;
   struct dirent *dirent1 = 0;
@@ -124,9 +125,12 @@ void displayFiles(const char *userid, const int sortby)
   (void) memset(buffer, 0, sizeof(buffer));
   (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s.%s",
 		  BACKUP_DIR, userid ? userid : "user", tmp);
-  (void) fchmod
-    (creat(buffer, (mode_t) (O_CREAT | O_TRUNC)), (mode_t) (S_IRUSR |
-							    S_IWUSR));
+  fd = creat(buffer, (mode_t) (O_CREAT | O_TRUNC));
+
+  if(fd != -1)
+    fchmod(fd, (mode_t) (S_IRUSR | S_IWUSR));
+
+  close(fd);
 
   if(userid && strcmp(userid, "admin") == 0)
     adminmode = TRUE;
