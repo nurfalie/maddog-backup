@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 	  */
 
 	  /*
-	  ** Check a predefined list of valid ids.
+	  ** Check a list of valid ids.
 	  */
 
 	  if(isValidId(argv[1]) == TRUE)
