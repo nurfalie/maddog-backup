@@ -71,6 +71,7 @@
 ** -- Function Prototypes --
 */
 
+int isValidId(const char *);
 void displayFiles(const char *, const int);
 static int date_cmp(const void *, const void *);
 static int name_cmp(const void *, const void *);
@@ -94,6 +95,18 @@ struct file_info
 /*
 ** -- Functions --
 */
+
+int isValidId(const char *id)
+{
+  size_t i = 0;
+
+  if(id)
+    for(i = 0; i < sizeof(users) / sizeof(users[0]); i++)
+      if(strncmp(id, users[i], strlen(users[i])) == 0)
+	return TRUE;
+
+  return FALSE;
+}
 
 void displayFiles(const char *userid, const int sortby)
 {

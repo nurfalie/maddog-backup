@@ -98,18 +98,6 @@ int main(int argc, char *argv[])
   return EXIT_SUCCESS;
 }
 
-static int isValidId(const char *id)
-{
-  size_t i = 0;
-
-  if(id)
-    for(i = 0; i < sizeof(users) / sizeof(users[0]); i++)
-      if(strncmp(id, users[i], strlen(users[i])) == 0)
-	return TRUE;
-
-  return FALSE;
-}
-
 static int passwdSet(const char *path, const char *userid)
 {
   /*

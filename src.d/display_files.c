@@ -31,7 +31,6 @@ int main(int argc, char *argv[])
   (void) printf("Content-type: text/html\n\n");
   (void) printf("<html><body>\n");
   (void) printf("<title>Mad Dog Backup System</title>\n");
-  (void) userid;
 
   if(argc > 1 && argv[1] != 0)
     {
@@ -45,6 +44,12 @@ int main(int argc, char *argv[])
     }
   else
     userid = unknown;
+
+  if(!isValidId(userid))
+    {
+      (void) printf(ERROR, __LINE__, __FILE__, HOME);
+      return EXIT_SUCCESS;
+    }
 
   if(argc > 1 && argv[1] != 0 && strcmp(argv[1], "admin") != 0)
     {

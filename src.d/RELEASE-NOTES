@@ -1,10 +1,11 @@
 2.2.9 (04/04/2014)
 
-1.  Increased BUFF_SIZE to 1024.
-2.  Replaced all access() instances with stat().
-3.  The displayFiles() function did not properly close
+1.  All functions must verify that the provided user name is known.
+2.  Increased BUFF_SIZE to 1024.
+3.  Replaced all access() instances with stat().
+4.  The displayFiles() function did not properly close
     the file opened by creat(). Corrected.
-4.  The variable stdin may be invalid.
+5.  The variable stdin may be invalid.
 
 2.2.8 (03/20/2014)
 
