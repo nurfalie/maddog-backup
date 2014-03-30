@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
       (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s."
 		      "%s", BACKUP_DIR, argv[1], tmp1);
 
-      if(access(buffer, F_OK) == 0)
+      if(stat(buffer, &stat_buf) == 0)
 	displayFiles(argv[1], sortby);
       else
 	set = 0;

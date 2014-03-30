@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
   char buffer[BUFF_SIZE];
   char *tmp = 0;
   mode_t mode = 0;
+  struct stat stat_buf;
 
   (void) printf("Content-type: text/html\n\n");
   (void) printf("<html><body>");
@@ -41,7 +42,7 @@ int main(int argc, char *argv[])
 	(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s.%s",
 	 BACKUP_DIR, argv[1], tmp);
 
-      if(access(buffer, F_OK) != -1)
+      if(stat(buffer, &stat_buf) == 0)
 	{
 	  (void) printf("<meta http-equiv=\"refresh\" "
 			"content=\"5; url="
@@ -70,7 +71,7 @@ int main(int argc, char *argv[])
 	      (void) snprintf(buffer, sizeof(buffer), "%s/data",
 			      BACKUP_DIR);
 
-	      if(access(buffer, F_OK) != 0)
+	      if(stat(buffer, &stat_buf) != 0)
 		{
 		  mode = (mode_t) PERMISSIONS;
 		  (void) umask(~mode);
@@ -116,6 +117,7 @@ static int passwdSet(const char *path, const char *userid)
   */
 
   char buffer[BUFF_SIZE];
+  struct stat stat_buf;
 
   if(path)
     {
@@ -123,7 +125,7 @@ static int passwdSet(const char *path, const char *userid)
       (void) snprintf(buffer, sizeof(buffer), "%s/passwd.%s", path,
 		      userid ? userid : "user");
 
-      if(access(buffer, F_OK) != 0)
+      if(stat(buffer, &stat_buf) != 0)
 	return FALSE;
       else
 	return TRUE;
