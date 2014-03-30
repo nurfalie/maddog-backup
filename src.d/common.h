@@ -102,7 +102,7 @@ int isValidId(const char *id)
 
   if(id)
     for(i = 0; i < sizeof(users) / sizeof(users[0]); i++)
-      if(strncmp(id, users[i], strlen(users[i])) == 0)
+      if(strncmp(id, users[i], strlen(id))) == 0)
 	return TRUE;
 
   return FALSE;
@@ -347,7 +347,7 @@ void displayFiles(const char *userid, const int sortby)
 		  if(!(strcmp(dirent2->d_name, ".") == 0 ||
 		       strcmp(dirent2->d_name, "..") == 0))
 		    {
-		      if(strncmp(dirent1->d_name, "deleted", (size_t) 7) == 0)
+		      if(strncmp(dirent1->d_name, "deleted", 7) == 0)
 			deleted = 1;
 		      else
 			deleted = 0;
