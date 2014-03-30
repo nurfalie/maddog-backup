@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
   (void) printf("<title>Mad Dog Backup System</title>\n<body>");
   (void) printf("<center>\n");
 
-  if(argc > 1 && argv[1] != 0)
+  if(argc > 1 && argv[1] != 0 && isValidId(argv[1]))
     {
       (void) printf("<table cellpadding=0 width=\"100%%\" cellspacing=1 "
 		    "border=0 bgcolor=\"DarkSlateGray\"><tr><td>\n");

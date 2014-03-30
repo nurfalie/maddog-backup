@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 		"content=\"5; url=%s\">", HOME);
   (void) printf("<center>\n");
 
-  if(argc > 1 && argv[1] != 0)
+  if(argc > 1 && argv[1] != 0 && isValidId(argv[1]))
     {
       (void) memset(tmp2, 0, sizeof(tmp2));
       (void) snprintf(tmp2, sizeof(tmp2), "%s", argv[1]);
