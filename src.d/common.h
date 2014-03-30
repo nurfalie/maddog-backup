@@ -102,7 +102,7 @@ int isValidId(const char *id)
 
   if(id)
     for(i = 0; i < sizeof(users) / sizeof(users[0]); i++)
-      if(strncmp(id, users[i], strlen(id)) == 0)
+      if(strcmp(id, users[i]) == 0)
 	return TRUE;
 
   return FALSE;
@@ -206,7 +206,7 @@ void displayFiles(const char *userid, const int sortby)
 	  while((dirent1 = readdir(dirp1)) != 0)
 	    if(!(strcmp(dirent1->d_name, ".") == 0 ||
 		 strcmp(dirent1->d_name, "..") == 0))
-	      if(strncmp(dirent1->d_name, "passwd", 6) == 0)
+	      if(strncmp(dirent1->d_name, "passwd.", 7) == 0)
 		{
 		  (void) memset(buffer, 0, sizeof(buffer));
 		  (void) snprintf(buffer, sizeof(buffer), "%s/data/%s",
