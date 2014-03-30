@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
   (void) printf("<title>Mad Dog Backup System</title>\n");
   (void) printf("<center>\n");
 
-  if(argc > 1 && argv[1] != 0)
+  if(argc > 1 && argv[1] != 0 && isValidId(argv[1]))
     {
       /*
       ** Does a special file exist?
