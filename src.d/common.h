@@ -347,7 +347,7 @@ void displayFiles(const char *userid, const int sortby)
 		  if(!(strcmp(dirent2->d_name, ".") == 0 ||
 		       strcmp(dirent2->d_name, "..") == 0))
 		    {
-		      if(strncmp(dirent1->d_name, "deleted", 7) == 0)
+		      if(strcmp(dirent1->d_name, "deleted") == 0)
 			deleted = 1;
 		      else
 			deleted = 0;
