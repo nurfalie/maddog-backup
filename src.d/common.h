@@ -358,7 +358,7 @@ void displayFiles(const char *userid, const int sortby)
 		      (void) memset(files[i].location, 0,
 				    sizeof(files[i].location));
 
-		      if(strlen(reldir) > 0)
+		      if(strnlen(reldir, sizeof(reldir)) > 0)
 			(void) snprintf(files[i].location,
 					sizeof(files[0].location),
 					"../../%s/%s/files/%s/%s",
