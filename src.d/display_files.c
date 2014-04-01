@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
   char buffer[BUFF_SIZE];
   char deldir[BUFF_SIZE + 7]; /* strlen("deleted") */
   char indata[BUFF_SIZE];
-  char one[] = "1";
   char *tmp1 = 0;
   char *tmp2 = 0;
   char unknown[] = "UNKNOWN";
@@ -72,7 +71,7 @@ int main(int argc, char *argv[])
   if(argc > 1 && argv[1] != 0)
     {
       if((tmp1 = getenv("REMOTE_ADDR")) == 0)
-	tmp1 = one;
+	tmp1 = "1";
 
       (void) memset(buffer, 0, sizeof(buffer));
       (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s."
