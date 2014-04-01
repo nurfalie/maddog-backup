@@ -126,7 +126,7 @@ static void passwdInit(const int new_id, const char *userid)
   (void) printf("<table cellpadding=1 width=\"50%%\" cellspacing=0 border=0 "
 		"bgcolor=\"DarkSlateGray\"><tr><td>\n");
   (void) printf("<a href=\"%s\">%sMad Dog Backup System Home</a> >> "
-		"Passward Entry%s<br>",
+		"Password Entry%s<br>",
 		HOME, FBEG, FEND);
   (void) printf("<table width=\"100%%\" border=0 bordercolor=\"tomato\">\n");
   (void) printf("<tr>\n");
