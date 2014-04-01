@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
   else
     (void) printf(ERROR, __LINE__, __FILE__, HOME);
 
-  (void) printf("<hr>| <a href=\"javascript:window.close()\">Close</a> |\n");
+  (void) printf("| <a href=\"javascript:window.close()\">Close</a> |\n");
   (void) printf("</center>\n");
   (void) printf("</body></html>");
   return EXIT_SUCCESS;

@@ -176,7 +176,6 @@ void displayFiles(const char *userid, const int sortby)
 		"%s/logout_user.cgi?%s\"' "
 		"value=\"Logout\">\n",
 		CGI_DIR, userid ? userid : "user");
-  (void) printf("<hr>\n");
 
   if(adminmode == TRUE)
     {
@@ -222,7 +221,7 @@ void displayFiles(const char *userid, const int sortby)
 
 		      if(fgets(buffer, (int) sizeof(buffer), fp) != 0)
 			(void) printf("<th>%s%s%s</th>\n",
-				      FBEG, strrchr(buffer, '=') + 1, FEND);
+				      FBEG, buffer, FEND);
 		      else
 			(void) printf("<th>%sUnknown%s</th>\n", FBEG, FEND);
 
@@ -513,7 +512,6 @@ void displayFiles(const char *userid, const int sortby)
 
   if(ct > 0)
     {
-      (void) printf("<hr>\n");
       (void) printf("| <a href=\"javascript:"
 		    "checkBoxSelect(true)\">Select "
 		    "All</a> | ");

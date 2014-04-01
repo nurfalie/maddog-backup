@@ -14,13 +14,16 @@ extern char *crypt(const char *key, const char *salt);
 
 static int isPasswordCorrect(const char *line, const char *password)
 {
-  char *output1 = 0;
-  char output2[128];
+  char *output = 0;
   char salt[20];
   int rc = 0;
 
+  /*
+  ** A newline is stored in line.
+  */
+
   if(!line || !password || 
-     strnlen(line, 106) != 106 || strnlen(password, 35) == 35)
+     strnlen(line, 107) != 107 || strnlen(password, 35) == 35)
     {
       rc = 0;
       goto done_label;
@@ -28,14 +31,11 @@ static int isPasswordCorrect(const char *line, const char *password)
 
   (void) memset(salt, 0, sizeof(salt));
   (void) strncpy(salt, line, sizeof(salt) - 1);
-  output1 = crypt(password, salt);
+  output = crypt(password, salt);
 
-  if(output1 && strnlen(output1, 106) == 106)
+  if(output && strnlen(output, 106) == 106)
     {
-      (void) memset(output2, 0, sizeof(output2));
-      (void) strncpy(output2, output1, sizeof(output2) - 1);
-
-      if(strcmp(output1, output2) == 0)
+      if(strncmp(line, output, 106) == 0)
 	rc = 1;
       else
 	rc = 0;
@@ -106,7 +106,7 @@ static int savePassword(const char *password, FILE *fp)
 
   if(output)
     {
-      if(fputs(output, fp) != EOF)
+      if(fputs(output, fp) != EOF && fputs("\n", fp) != EOF)
 	rc = 0;
       else
 	rc = 1;

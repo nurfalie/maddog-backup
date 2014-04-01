@@ -4,5 +4,7 @@
 
 char *users[] = {
   "admin",
-  "user"
+  "monster",
+  "panda",
+  "penguin"
 };
