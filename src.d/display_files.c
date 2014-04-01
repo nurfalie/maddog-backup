@@ -1,6 +1,8 @@
 /*
-** Copyright (c) 2003 - Eternity Alexis Megas.
+** Copyright (c) 2003 - Eternity, Calvin.
 */
+
+#include <ctype.h>
 
 /*
 ** -- Local Includes --
@@ -8,9 +10,121 @@
 
 #include "common.h"
 
-/*
-** -- Local Globals --
-*/
+extern char *crypt(const char *key, const char *salt);
+
+static int isPasswordCorrect(const char *line, const char *password)
+{
+  char *output1 = 0;
+  char output2[128];
+  char salt[20];
+  int rc = 0;
+
+  if(!line || !password || 
+     strnlen(line, 106) != 106 || strnlen(password, 35) == 35)
+    {
+      rc = 0;
+      goto done_label;
+    }
+
+  (void) memset(salt, 0, sizeof(salt));
+  (void) strncpy(salt, line, sizeof(salt) - 1);
+  output1 = crypt(password, salt);
+
+  if(output1 && strnlen(output1, 106) == 106)
+    {
+      (void) memset(output2, 0, sizeof(output2));
+      (void) strncpy(output2, output1, sizeof(output2) - 1);
+
+      if(strcmp(output1, output2) == 0)
+	rc = 1;
+      else
+	rc = 0;
+    }
+  else
+    rc = 0;
+
+ done_label:
+  return rc;
+}
+
+static int savePassword(const char *password, FILE *fp)
+{
+  char c;
+  char *output = 0;
+  char salt[17];
+  char sha512[128];
+  int fd = -1;
+  int i = 0;
+  int rc = 1;
+
+  if(!fp || !password ||
+     strnlen(password, 32) == 0 || strnlen(password, 35) == 35)
+    {
+      rc = 1;
+      goto done_label;
+    }
+
+  if((fd = open("/dev/urandom", O_RDONLY)) == -1)
+    {
+      rc = 1;
+      goto done_label;
+    }
+
+  (void) memset(salt, 0, sizeof(salt));
+
+  while(1)
+    {
+      c = 0;
+
+      if(read(fd, &c, 1) == 1)
+	{
+	  if(c == '.' || c == '/' || isalnum(c))
+	    {
+	      salt[i] = c;
+	      i += 1;
+
+	      if((size_t) i >= sizeof(salt) - 1)
+		{
+		  rc = 0;
+		  break;
+		}
+	    }
+	}
+      else
+	{
+	  rc = 1;
+	  break;
+	}
+    }
+
+  if(rc == 1)
+    goto done_label;
+  
+  (void) memset(sha512, 0, sizeof(sha512));
+  (void) snprintf(sha512, sizeof(sha512), "$6$%s", salt);
+  output = crypt(password, sha512);
+
+  if(output)
+    {
+      if(fputs(output, fp) != EOF)
+	rc = 0;
+      else
+	rc = 1;
+    }
+  else
+    rc = 1;
+
+ done_label:
+  close(fd);
+
+  if(fp)
+    {
+      fclose(fp);
+      fp = 0;
+    }
+
+  return rc;
+}
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +134,7 @@ int main(int argc, char *argv[])
   char indata[BUFF_SIZE];
   char *tmp1 = 0;
   char *tmp2 = 0;
-  char unknown[] = "UNKNOWN";
+  char unknown[] = "unknown";
   char *userid = 0;
   int set = 1;
   int sortby = SORTBY_NAME;
@@ -104,7 +218,7 @@ int main(int argc, char *argv[])
 		    {
 		      if((tmp1 = indata) != 0)
 			{
-			  if(strcmp(buffer, tmp1) != 0)
+			  if(!isPasswordCorrect(buffer, tmp1))
 			    (void) printf("<center>Password is not correct. "
 					  "Please "
 					  "<a href=\"%s/lookup_user.cgi?%s\">"
@@ -147,32 +261,31 @@ int main(int argc, char *argv[])
 
 	      if((fp = fopen(buffer, "w")) != 0)
 		{
-		  if(fputs(tmp1, fp) == EOF)
-		    (void) printf(ERROR, __LINE__, __FILE__, HOME);
+		  if(savePassword(tmp1, fp) == 0)
+		    {
+		      /*
+		      ** Create the files and deleted directories.
+		      */
 
-		  (void) fclose(fp);
-		  fp = 0;
+		      mode = (mode_t) PERMISSIONS;
+		      (void) umask(~mode);
+		      (void) memset(buffer, 0, sizeof(buffer));
+		      (void) snprintf(buffer, sizeof(buffer), "%s/%s/files",
+				      BACKUP_DIR, argv[1]);
+		      (void) memset(deldir, 0, sizeof(deldir));
+		      (void) snprintf(deldir, sizeof(deldir),
+				      "%s/%s/files/deleted",
+				      BACKUP_DIR, argv[1]);
 
-		  /*
-		  ** Create the files and deleted directories.
-		  */
-
-		  mode = (mode_t) PERMISSIONS;
-		  (void) umask(~mode);
-		  (void) memset(buffer, 0, sizeof(buffer));
-		  (void) snprintf(buffer, sizeof(buffer), "%s/%s/files",
-				  BACKUP_DIR, argv[1]);
-		  (void) memset(deldir, 0, sizeof(deldir));
-		  (void) snprintf(deldir, sizeof(deldir),
-				  "%s/%s/files/deleted",
-				  BACKUP_DIR, argv[1]);
-
-		  if(mkdir(buffer, mode) != 0 && errno != EEXIST)
-		    (void) printf(ERROR, __LINE__, __FILE__, HOME);
-		  else if(mkdir(deldir, mode) != 0 && errno != EEXIST)
-		    (void) printf(ERROR, __LINE__, __FILE__, HOME);
+		      if(mkdir(buffer, mode) != 0 && errno != EEXIST)
+			(void) printf(ERROR, __LINE__, __FILE__, HOME);
+		      else if(mkdir(deldir, mode) != 0 && errno != EEXIST)
+			(void) printf(ERROR, __LINE__, __FILE__, HOME);
+		      else
+			displayFiles(argv[1], sortby);
+		    }
 		  else
-		    displayFiles(argv[1], sortby);
+		    (void) printf(ERROR, __LINE__, __FILE__, HOME);
 		}
 	      else
 		(void) printf(ERROR, __LINE__, __FILE__, HOME);

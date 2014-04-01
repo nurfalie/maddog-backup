@@ -4,11 +4,12 @@
 2.  Corrected the isValidId() function. The function accepted
     names that partially matched existing names.
 3.  Increased BUFF_SIZE to 1024.
-4.  Replaced all access() instances with stat().
-5.  The displayFiles() function did not properly close
+4.  Passwords are now hashed via crypt(). Please reset.
+5.  Replaced all access() instances with stat().
+6.  The displayFiles() function did not properly close
     the file opened by creat(). Corrected.
-6.  The variable stdin may be invalid.
-7.  Use strnlen() where possible.
+7.  The variable stdin may be invalid.
+8.  Use strnlen() where possible.
 
 2.2.8 (03/20/2014)
 

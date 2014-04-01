@@ -13,7 +13,7 @@ GCC_OPTIONS	= -Wall -Werror -Wextra -Wformat -Wstack-protector \
 		  -fPIE -fstack-protector-all -pedantic -pie $(LDEFINES)
 INC		= -I/usr/include -I/usr/local/include
 INCLUDES	= common.h
-LIB		=
+LIB		= -lcrypt
 
 ADD_FILE_SRC		=	add_file.c
 DELETE_FILES_SRC	=	delete_files.c
