@@ -112,7 +112,6 @@ void displayFiles(const char *userid, const int sortby)
 {
   DIR *dirp1 = 0;
   DIR *dirp2 = 0;
-  FILE *fp = 0;
   char *tmp = 0;
   char buffer[BUFF_SIZE];
   char newdate[BUFF_SIZE];
@@ -197,8 +196,7 @@ void displayFiles(const char *userid, const int sortby)
 	  (void) printf("<tr size=20>\n");
 	  (void) printf("<th bgcolor=\"CornflowerBlue\">%sUser Account%s"
 			"</th>\n", FBEG, FEND);
-	  (void) printf("<th bgcolor=\"CornflowerBlue\">%sPassword "
-			"%s</th>\n",
+	  (void) printf("<th bgcolor=\"CornflowerBlue\">%s%s</th>\n",
 			FBEG, FEND);
 	  (void) printf("</tr>\n");
 
@@ -210,25 +208,13 @@ void displayFiles(const char *userid, const int sortby)
 		  (void) memset(buffer, 0, sizeof(buffer));
 		  (void) snprintf(buffer, sizeof(buffer), "%s/data/%s",
 				  BACKUP_DIR, dirent1->d_name);
-
-		  if((fp = fopen(buffer, "r")) != 0)
-		    {
-		      (void) printf("<tr bgcolor=\"SlateGray\">\n");
-		      (void) printf("<th>%s%s%s</th>\n",
-				    FBEG, strrchr(dirent1->d_name, '.') + 1,
-						 FEND);
-		      (void) memset(buffer, 0, sizeof(buffer));
-
-		      if(fgets(buffer, (int) sizeof(buffer), fp) != 0)
-			(void) printf("<th>%s%s%s</th>\n",
-				      FBEG, buffer, FEND);
-		      else
-			(void) printf("<th>%sUnknown%s</th>\n", FBEG, FEND);
-
-		      (void) printf("</tr>\n");
-		      (void) fclose(fp);
-		      fp = 0;
-		    }
+		  (void) printf("<tr bgcolor=\"SlateGray\">\n");
+		  (void) printf("<th>%s%s%s</th>\n",
+				FBEG, strrchr(dirent1->d_name, '.') + 1,
+				FEND);
+		  (void) printf("<th>%s%s%s</th>\n",
+				FBEG, "", FEND);
+		  (void) printf("</tr>\n");
 		}
 
 	  (void) printf("</td></tr></table>\n");
@@ -490,7 +476,7 @@ void displayFiles(const char *userid, const int sortby)
 		      newdate, FEND);
 
 	if(files[i].deleted > 0)
-	  (void) printf("<th>%sYES%s</th>\n", FBEG, FEND);
+	  (void) printf("<th>%sYes%s</th>\n", FBEG, FEND);
 	else
 	  (void) printf("<th>&nbsp</th>\n");
 
