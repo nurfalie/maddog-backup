@@ -1,5 +1,5 @@
 /*
-** Copyright (c) 2003 - Eternity, Calvin.
+** Copyright (c) 2003 - Eternity, Alexis Megas.
 ** All rights reserved.
 **
 ** Redistribution and use in source and binary forms, with or without

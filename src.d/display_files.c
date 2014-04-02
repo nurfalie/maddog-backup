@@ -1,5 +1,5 @@
 /*
-** Copyright (c) 2003 - Eternity, Calvin.
+** Copyright (c) 2003 - Eternity, Alexis Megas.
 */
 
 #include <ctype.h>
