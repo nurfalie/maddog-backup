@@ -6,10 +6,11 @@
 3.  Increased BUFF_SIZE to 1024.
 4.  Passwords are now hashed via crypt(). Please reset.
 5.  Replaced all access() instances with stat().
-6.  The displayFiles() function did not properly close
+6.  Spelling corrections.
+7.  The displayFiles() function did not properly close
     the file opened by creat(). Corrected.
-7.  The variable stdin may be invalid.
-8.  Use strnlen() where possible.
+8.  The variable stdin may be invalid.
+9.  Use strnlen() where possible.
 
 2.2.8 (03/20/2014)
 
