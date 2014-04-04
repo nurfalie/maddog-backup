@@ -17,6 +17,7 @@ static int isPasswordCorrect(const char *line, const char *password)
   char *output = 0;
   char salt[20];
   int rc = 0;
+  size_t i = 0;
 
   /*
   ** A newline is stored in line.
@@ -35,7 +36,15 @@ static int isPasswordCorrect(const char *line, const char *password)
 
   if(output && strnlen(output, 106) == 106)
     {
-      if(strncmp(line, output, 106) == 0)
+      /*
+      ** Both line and output should be at least 106 characters long.
+      ** x ^ y returns zero if x and y are identical.
+      */
+
+      for(i = 0; i < strlen(line) - 1; i++)
+	rc |= line[i] ^ output[i];
+
+      if(rc == 0)
 	rc = 1;
       else
 	rc = 0;
@@ -54,8 +63,8 @@ static int savePassword(const char *password, FILE *fp)
   char salt[17];
   char sha512[128];
   int fd = -1;
-  int i = 0;
   int rc = 1;
+  size_t i = 0;
 
   if(!fp || !password ||
      strnlen(password, 32) == 0 || strnlen(password, 35) == 35)
@@ -83,7 +92,7 @@ static int savePassword(const char *password, FILE *fp)
 	      salt[i] = c;
 	      i += 1;
 
-	      if((size_t) i >= sizeof(salt) - 1)
+	      if(i >= sizeof(salt) - 1)
 		{
 		  rc = 0;
 		  break;
