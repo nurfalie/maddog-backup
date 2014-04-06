@@ -10,7 +10,7 @@ all:	add_file \
 
 GCC		= gcc
 GCC_OPTIONS	= -Wall -Werror -Wextra -Wformat -Wstack-protector \
-		  -fPIE -fstack-protector-all -pedantic -pie $(LDEFINES)
+		  -fPIE -fstack-protector-all -fwrapv -pedantic -pie $(LDEFINES)
 INC		= -I/usr/include -I/usr/local/include
 INCLUDES	= common.h
 LIB		= -lcrypt
