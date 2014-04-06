@@ -143,6 +143,7 @@ void displayFiles(const char *userid, const int sortby)
     fchmod(fd, (mode_t) (S_IRUSR | S_IWUSR));
 
   close(fd);
+  fd = -1;
 
   if(userid && strcmp(userid, "admin") == 0)
     adminmode = TRUE;
@@ -217,6 +218,7 @@ void displayFiles(const char *userid, const int sortby)
 	  (void) printf("</table>\n");
 	  (void) printf("</center>\n");
 	  (void) closedir(dirp1);
+	  dirp1 = 0;
 	}
 
       return;
@@ -304,7 +306,7 @@ void displayFiles(const char *userid, const int sortby)
 	}
 
       if((files = (struct file_info *)
-	  malloc((size_t) ct * sizeof(struct file_info))) == 0)
+	  malloc(ct * sizeof(struct file_info))) == 0)
 	{
 	  (void) closedir(dirp1);
 	  dirp1 = 0;
@@ -396,6 +398,7 @@ void displayFiles(const char *userid, const int sortby)
 		    }
 
 		(void) closedir(dirp2);
+		dirp2 = 0;
 	      }
 
 	    if(i >= ct)
@@ -403,6 +406,7 @@ void displayFiles(const char *userid, const int sortby)
 	  }
 
       (void) closedir(dirp1);
+      dirp1 = 0;
     }
 
   /*
@@ -415,7 +419,7 @@ void displayFiles(const char *userid, const int sortby)
       case SORTBY_DATE:
 	{
 	  qsort((void *) files,
-		(size_t) ct,
+		ct,
 		sizeof(struct file_info),
 		date_cmp);
 	  break;
@@ -423,7 +427,7 @@ void displayFiles(const char *userid, const int sortby)
       case SORTBY_NAME:
 	{
 	  qsort((void *) files,
-		(size_t) ct,
+		ct,
 		sizeof(struct file_info),
 		name_cmp);
 	  break;
@@ -431,7 +435,7 @@ void displayFiles(const char *userid, const int sortby)
       case SORTBY_SIZE:
 	{
 	  qsort((void *) files,
-		(size_t) ct,
+		ct,
 		sizeof(struct file_info),
 		size_cmp);
 	  break;

@@ -262,7 +262,7 @@ $makefile_tmp = "CGI_PATH = " . $cgidir . "\n" .
     "-DCGI_DIR='\"" . $cgiurl . "\"'\\\n" .
     "-DHOME='\"" . $homeurl . "\"'\n" .
     "\n" .
-    "install:\n" .
+    "install: all\n" .
     "\t\$(INSTALL) \$(INSTALL_OPS) add_file \$(CGI_PATH)/add_file.cgi\n" .
     "\t\$(INSTALL) \$(INSTALL_OPS) delete_files \$(CGI_PATH)/" .
     "delete_files.cgi\n" .
