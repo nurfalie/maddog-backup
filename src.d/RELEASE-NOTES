@@ -1,6 +1,7 @@
 2.3.0 (04/11/2014)
 
 1.  Added the fwrapv compiler flag.
+2.  Reset buffers that may contain password information in display_files.c.
 
 2.2.9 (04/04/2014)
 

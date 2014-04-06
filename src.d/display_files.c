@@ -258,7 +258,7 @@ int main(int argc, char *argv[])
 	    (void) printf("<center>Password entries do not match. Please "
 			  "<a href=\"%s/lookup_user.cgi?%s\">re-enter</a> "
 			  "your password.</center>\n", CGI_DIR, argv[1]);
-	  else if(strlen(tmp1) < 10 + strlen("pass="))
+	  else if(strnlen(tmp1, 35) < 10 + strlen("pass="))
 	    (void) printf("<center>Password must be at least ten characters "
 			  "long. "
 			  "Please "
@@ -305,5 +305,8 @@ int main(int argc, char *argv[])
     (void) printf(ERROR, __LINE__, __FILE__, HOME);
 
   (void) printf("</body></html>\n");
+  (void) memset(buffer, 0, sizeof(buffer));
+  (void) memset(indata, 0, sizeof(indata));
+  tmp1 = tmp2 = 0;
   return EXIT_SUCCESS;
 }
