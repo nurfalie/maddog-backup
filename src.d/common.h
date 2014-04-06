@@ -196,8 +196,6 @@ void displayFiles(const char *userid, const int sortby)
 	  (void) printf("<tr size=20>\n");
 	  (void) printf("<th bgcolor=\"CornflowerBlue\">%sUser Account%s"
 			"</th>\n", FBEG, FEND);
-	  (void) printf("<th bgcolor=\"CornflowerBlue\">%s%s</th>\n",
-			FBEG, FEND);
 	  (void) printf("</tr>\n");
 
 	  while((dirent1 = readdir(dirp1)) != 0)
@@ -212,8 +210,6 @@ void displayFiles(const char *userid, const int sortby)
 		  (void) printf("<th>%s%s%s</th>\n",
 				FBEG, strrchr(dirent1->d_name, '.') + 1,
 				FEND);
-		  (void) printf("<th>%s%s%s</th>\n",
-				FBEG, "", FEND);
 		  (void) printf("</tr>\n");
 		}
 
