@@ -126,12 +126,6 @@ static int savePassword(const char *password, FILE *fp)
  done_label:
   close(fd);
 
-  if(fp)
-    {
-      fclose(fp);
-      fp = 0;
-    }
-
   return rc;
 }
 
@@ -295,6 +289,9 @@ int main(int argc, char *argv[])
 		    }
 		  else
 		    (void) printf(ERROR, __LINE__, __FILE__, HOME);
+
+		  fclose(fp);
+		  fp = 0;
 		}
 	      else
 		(void) printf(ERROR, __LINE__, __FILE__, HOME);
