@@ -131,7 +131,7 @@ static int savePassword(const char *password, FILE *fp)
 
 static void secure_memset(char *buffer, size_t size)
 {
-  volatile char *ptr = s;
+  volatile char *ptr = buffer;
 
   if(!ptr)
     return;
