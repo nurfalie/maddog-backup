@@ -302,6 +302,12 @@ int main(int argc, char *argv[])
     (void) printf(ERROR, __LINE__, __FILE__, HOME);
 
   (void) printf("</body></html>\n");
+
+  /*
+  ** The following will probably be removed by the compiler if
+  ** optimization is used.
+  */
+
   (void) memset(buffer, 0, sizeof(buffer));
   (void) memset(indata, 0, sizeof(indata));
   tmp1 = tmp2 = 0;
