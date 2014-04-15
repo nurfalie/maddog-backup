@@ -129,6 +129,17 @@ static int savePassword(const char *password, FILE *fp)
   return rc;
 }
 
+static void secure_memset(char *buffer, size_t size)
+{
+  volatile char *ptr = s;
+
+  if(!ptr)
+    return;
+
+  while(size--)
+    *ptr++ = 0;
+}
+
 int main(int argc, char *argv[])
 {
   FILE *fp = 0;
@@ -302,14 +313,8 @@ int main(int argc, char *argv[])
     (void) printf(ERROR, __LINE__, __FILE__, HOME);
 
   (void) printf("</body></html>\n");
-
-  /*
-  ** The following will probably be removed by the compiler if
-  ** optimization is used.
-  */
-
-  (void) memset(buffer, 0, sizeof(buffer));
-  (void) memset(indata, 0, sizeof(indata));
+  secure_memset(buffer, sizeof(buffer));
+  secure_memset(indata, sizeof(indata));
   tmp1 = tmp2 = 0;
   return EXIT_SUCCESS;
 }
