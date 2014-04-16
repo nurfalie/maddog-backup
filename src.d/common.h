@@ -518,6 +518,9 @@ static void getRel(const char *fulldir, char *reldir, const size_t size)
   size_t idx = 0;
   size_t j = 0;
 
+  if(size <= 0)
+    return;
+
   if(fulldir && strlen(fulldir) > 0)
     for(i = strlen(fulldir) - 1; i == 0 || i > 0; i--)
       {
