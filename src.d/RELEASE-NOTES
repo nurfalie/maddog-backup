@@ -1,8 +1,9 @@
 2.3.1 (04/16/2014)
 
 1.  Corrected version 2.3.0's item #3, or tried to.
-2.  The admin account should not be allowed to upload files.
-3.  The function getRel() should not assume that the size parameter is
+2.  Do not allow users who are not logged in to delete or upload files.
+3.  The admin account should not be allowed to upload files.
+4.  The function getRel() should not assume that the size parameter is
     positive.
 
 2.3.0 (04/09/2014)

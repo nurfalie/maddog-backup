@@ -24,17 +24,29 @@ int main(int argc, char *argv[])
   int fnd = 0;
   size_t i = 0;
   size_t j = 0;
+  struct stat stat_buf;
 
   (void) printf("Content-type: text/html\n\n");
   (void) printf("<html>");
   (void) printf("<title>Mad Dog Backup System</title>\n<body>");
   (void) printf("<center>\n");
 
-  if(argc > 1 && argv[1] != 0 && isValidId(argv[1]) && stdin != 0)
+  if((tmp = getenv("REMOTE_ADDR")) == 0)
+    tmp = "1";
+
+  (void) memset(buffer, 0, sizeof(buffer));
+
+  if(argc > 1 && argv[1] != 0)
+    (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s."
+		    "%s", BACKUP_DIR, argv[1], tmp);
+
+  if(argc > 1 && argv[1] != 0 && isValidId(argv[1]) &&
+     stat(buffer, &stat_buf) == 0 && stdin != 0)
     {
       (void) printf("<meta http-equiv=\"refresh\" "
 		    "content=\"5; url=%s/display_files.cgi?"
 		    "%s&%d\">", CGI_DIR, argv[1], SORTBY_NAME);
+      (void) memset(indata, 0, sizeof(indata));
 
       if(fgets(indata, (int) sizeof(indata), stdin) != 0)
 	{

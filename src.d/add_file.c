@@ -17,16 +17,27 @@ int main(int argc, char *argv[])
   DIR *dirp1= 0;
   DIR *dirp2 = 0;
   char buffer[BUFF_SIZE];
+  char *tmp = 0;
   struct dirent *dirent1 = 0;
   struct dirent *dirent2 = 0;
+  struct stat stat_buf;
 
   (void) printf("Content-type: text/html\n\n");
   (void) printf("<html>");
   (void) printf("<title>Mad Dog Backup System</title>\n<body>");
   (void) printf("<center>\n");
 
+  if((tmp = getenv("REMOTE_ADDR")) == 0)
+    tmp = "1";
+
+  (void) memset(buffer, 0, sizeof(buffer));
+
+  if(argc > 1 && argv[1] != 0)
+    (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s."
+		    "%s", BACKUP_DIR, argv[1], tmp);
+
   if(argc > 1 && argv[1] != 0 && isValidId(argv[1]) &&
-     strcmp(argv[1], "admin") != 0)
+     stat(buffer, &stat_buf) == 0 && strcmp(argv[1], "admin") != 0)
     {
       (void) printf("<table cellpadding=0 width=\"100%%\" cellspacing=1 "
 		    "border=0 bgcolor=\"DarkSlateGray\"><tr><td>\n");

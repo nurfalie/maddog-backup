@@ -1,9 +1,9 @@
 Completed Items
 
-1.  Passwords are stored as plaintexts.
+1.  Do not allow users who are not logged in to upload files.
+2.  Passwords are stored as plaintexts.
 
 Remaining Items
 
-1.  Do not allow users who are not logged to upload files.
-2.  Pagination.
-3.  Use cookies.
+1.  Pagination.
+2.  Use cookies.

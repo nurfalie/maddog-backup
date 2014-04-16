@@ -129,15 +129,16 @@ static int savePassword(const char *password, FILE *fp)
   return rc;
 }
 
-static void secure_memset(char *buffer, size_t size)
+static void secure_memset(char *buffer, const char c, const size_t size)
 {
+  size_t s = size;
   volatile char *ptr = buffer;
 
   if(!ptr)
     return;
 
-  while(size--)
-    *ptr++ = 0;
+  while(s--)
+    *ptr++ = c;
 }
 
 int main(int argc, char *argv[])
@@ -313,8 +314,8 @@ int main(int argc, char *argv[])
     (void) printf(ERROR, __LINE__, __FILE__, HOME);
 
   (void) printf("</body></html>\n");
-  secure_memset(buffer, sizeof(buffer));
-  secure_memset(indata, sizeof(indata));
+  secure_memset(buffer, 0, sizeof(buffer));
+  secure_memset(indata, 0, sizeof(indata));
   tmp1 = tmp2 = 0;
   return EXIT_SUCCESS;
 }
