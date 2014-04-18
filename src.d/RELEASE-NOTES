@@ -1,8 +1,9 @@
 2.3.1 (04/18/2014)
 
-1.  Added compiler flags.
-2.  Added sample Makefile.tmp.
-3.  Version remains at 2.3.1.
+1.  Added Makefile.freebsd.
+2.  Added compiler flags.
+3.  Added sample Makefile.tmp.
+4.  Version remains at 2.3.1.
 
 2.3.1 (04/16/2014)
 
