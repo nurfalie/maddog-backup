@@ -1,0 +1,13 @@
+CGI_PATH = /usr/lib/cgi-bin/maddog-backup.d
+INSTALL_OPS = -o www-data -g www-data
+LDEFINES = -DBACKUP_DIR='"/var/www/maddog-backup.d"'\
+-DCGI_DIR='"https://192.168.178.1/cgi-bin/maddog-backup.d"'\
+-DHOME='"https://192.168.178.1/maddog-backup.d"'
+
+install: all
+	$(INSTALL) $(INSTALL_OPS) add_file $(CGI_PATH)/add_file.cgi
+	$(INSTALL) $(INSTALL_OPS) delete_files $(CGI_PATH)/delete_files.cgi
+	$(INSTALL) $(INSTALL_OPS) display_files $(CGI_PATH)/display_files.cgi
+	$(INSTALL) $(INSTALL_OPS) logout_user $(CGI_PATH)/logout_user.cgi
+	$(INSTALL) $(INSTALL_OPS) lookup_user $(CGI_PATH)/lookup_user.cgi
+	$(INSTALL) $(INSTALL_OPS) upload_script.pl $(CGI_PATH)

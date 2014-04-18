@@ -53,7 +53,6 @@ clean:
 	rm -f *.cgi
 
 distclean: clean
-	rm -f Makefile.tmp
 
 purge:
 	rm -f *~
