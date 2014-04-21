@@ -9,7 +9,7 @@ all:	add_file \
 -include ./Makefile.tmp
 
 GCC		= gcc
-GCC_OPTIONS	= -Wall -Werror -Wextra -Wformat -Wpointer-arith \
+GCC_OPTIONS	= -Wall -Werror -Wextra -Wformat=2 -Wpointer-arith \
 		  -Wstack-protector \
 		  -Wstrict-overflow=5 -Wstrict-prototypes \
 		  -fPIE -fstack-protector-all -fwrapv \
