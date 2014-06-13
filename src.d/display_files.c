@@ -146,6 +146,7 @@ int main(int argc, char *argv[])
   FILE *fp = 0;
   char buffer[BUFF_SIZE];
   char deldir[BUFF_SIZE + 7]; /* strlen("deleted") */
+  char *endptr;
   char indata[BUFF_SIZE];
   char *tmp1 = 0;
   char *tmp2 = 0;
@@ -168,7 +169,12 @@ int main(int argc, char *argv[])
 	userid = unknown;
 
       if((tmp1 = strtok(0, "\\&")) != 0)
-	sortby = atoi(tmp1);
+	{
+	  sortby = (int) strtol(tmp1, &endptr, 10);
+
+	  if(errno == EINVAL || errno == ERANGE || endptr == tmp1)
+	    sortby = SORTBY_NAME;
+	}
     }
   else
     userid = unknown;

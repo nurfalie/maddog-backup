@@ -1,3 +1,7 @@
+2.3.2 (06/13/2014)
+
+1.  Replaced atoi() with strtol().
+
 2.3.1 (04/22/2014)
 
 1.  Compiler flags.
