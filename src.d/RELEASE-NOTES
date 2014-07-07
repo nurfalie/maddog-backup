@@ -1,3 +1,9 @@
+2.3.3 (07/07/2014)
+
+1.  Inspect files with stat functions after the files are open
+    so as to avoid race conditions.
+2.  Verify that internal files are regular files with S_ISREG().
+
 2.3.2 (06/13/2014)
 
 1.  Replaced atoi() with strtol().

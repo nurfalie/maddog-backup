@@ -37,7 +37,8 @@ int main(int argc, char *argv[])
 		    "%s", BACKUP_DIR, argv[1], tmp);
 
   if(argc > 1 && argv[1] != 0 && isValidId(argv[1]) &&
-     stat(buffer, &stat_buf) == 0 && strcmp(argv[1], "admin") != 0)
+     stat(buffer, &stat_buf) == 0 &&
+     S_ISREG(stat_buf.st_mode) && strcmp(argv[1], "admin") != 0)
     {
       (void) printf("<table cellpadding=0 width=\"100%%\" cellspacing=1 "
 		    "border=0 bgcolor=\"DarkSlateGray\"><tr><td>\n");

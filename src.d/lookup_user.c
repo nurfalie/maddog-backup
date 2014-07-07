@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 	(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s.%s",
 	 BACKUP_DIR, argv[1], tmp);
 
-      if(stat(buffer, &stat_buf) == 0)
+      if(stat(buffer, &stat_buf) == 0 && S_ISREG(stat_buf.st_mode))
 	{
 	  (void) printf("<meta http-equiv=\"refresh\" "
 			"content=\"5; url="
@@ -114,8 +114,10 @@ static int passwdSet(const char *path, const char *userid)
 
       if(stat(buffer, &stat_buf) != 0)
 	return FALSE;
-      else
+      else if(S_ISREG(stat_buf.st_mode))
 	return TRUE;
+      else
+	return FALSE;
     }
   else
     return FALSE;

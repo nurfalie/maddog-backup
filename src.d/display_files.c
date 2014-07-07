@@ -212,7 +212,7 @@ int main(int argc, char *argv[])
       (void) snprintf(buffer, sizeof(buffer), "/%s/data/bcksys.loggedin.%s."
 		      "%s", BACKUP_DIR, argv[1], tmp1);
 
-      if(stat(buffer, &stat_buf) == 0)
+      if(stat(buffer, &stat_buf) == 0 && S_ISREG(stat_buf.st_mode))
 	displayFiles(argv[1], sortby);
       else
 	set = 0;
@@ -231,9 +231,9 @@ int main(int argc, char *argv[])
 	(void) printf(ERROR, __LINE__, __FILE__, HOME);
       else
 	{
-	  if(stat(buffer, &stat_buf) == 0)
+	  if((fp = fopen(buffer, "r")) != 0)
 	    {
-	      if((fp = fopen(buffer, "r")) != 0)
+	      if(stat(buffer, &stat_buf) == 0 && S_ISREG(stat_buf.st_mode))
 		{
 		  if(fgets(buffer, (int) sizeof(buffer), fp) != 0)
 		    {
@@ -260,7 +260,11 @@ int main(int argc, char *argv[])
 		  fp = 0;
 		}
 	      else
-		(void) printf(ERROR, __LINE__, __FILE__, HOME);
+		{
+		  (void) fclose(fp);
+		  fp = 0;
+		  (void) printf(ERROR, __LINE__, __FILE__, HOME);
+		}
 	    }
 	  else if((tmp1 = strtok(indata, "&")) == 0)
 	    (void) printf(ERROR, __LINE__, __FILE__, HOME);

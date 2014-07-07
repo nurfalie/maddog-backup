@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 		    "%s", BACKUP_DIR, argv[1], tmp);
 
   if(argc > 1 && argv[1] != 0 && isValidId(argv[1]) &&
-     stat(buffer, &stat_buf) == 0 && stdin != 0)
+     stat(buffer, &stat_buf) == 0 && S_ISREG(stat_buf.st_mode) && stdin != 0)
     {
       (void) printf("<meta http-equiv=\"refresh\" "
 		    "content=\"5; url=%s/display_files.cgi?"
