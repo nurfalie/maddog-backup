@@ -186,7 +186,7 @@ foreach $dir (@dirs)
 	    printf("Change %s's owner and group to %s and %s, " .
 		   "respectively? [N/y] ", $dir, $usernam, $groupnam);
 	    chop($val = <STDIN>);
-	    
+
 	    if(!$val)
 	      {
 		$val = "N";
@@ -241,7 +241,7 @@ $homeurl = "https://192.168.178.1/maddog-backup.d";
 
 do
 {
-    printf("What is the full home URL of your Mad Dog Backup System? [%s] ", 
+    printf("What is the full home URL of your Mad Dog Backup System? [%s] ",
 	   $homeurl);
     chop($val = <STDIN>);
 

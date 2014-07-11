@@ -23,7 +23,7 @@ static int isPasswordCorrect(const char *line, const char *password)
   ** A newline is stored in line.
   */
 
-  if(!line || !password || 
+  if(!line || !password ||
      strnlen(line, 107) != 107 || strnlen(password, 35) == 35)
     {
       rc = 0;
@@ -108,7 +108,7 @@ static int savePassword(const char *password, FILE *fp)
 
   if(rc == 1)
     goto done_label;
-  
+
   (void) memset(sha512, 0, sizeof(sha512));
   (void) snprintf(sha512, sizeof(sha512), "$6$%s", salt);
   output = crypt(password, sha512);
