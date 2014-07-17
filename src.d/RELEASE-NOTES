@@ -1,3 +1,7 @@
+2.3.4 (07/18/2014)
+
+1.  Use /dev/random instead of /dev/urandom.
+
 2.3.3 (07/07/2014)
 
 1.  Inspect files with stat functions after the files are open

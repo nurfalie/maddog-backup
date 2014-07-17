@@ -73,7 +73,7 @@ static int savePassword(const char *password, FILE *fp)
       goto done_label;
     }
 
-  if((fd = open("/dev/urandom", O_RDONLY)) == -1)
+  if((fd = open("/dev/random", O_RDONLY)) == -1)
     {
       rc = 1;
       goto done_label;
