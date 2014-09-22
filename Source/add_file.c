@@ -1,5 +1,5 @@
 /*
-** Copyright (c) 2003 - eternity, Alexis Megas.
+** Copyright (c) 2003 - present, Alexis Megas.
 */
 
 /*

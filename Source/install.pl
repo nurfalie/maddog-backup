@@ -1,5 +1,5 @@
 #!/usr/bin/perl -W
-# Copyright 2004 - eternity, Alexis Megas.
+# Copyright 2004 - present, Alexis Megas.
 
 use File::Path;
 use File::stat;
