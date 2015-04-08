@@ -305,8 +305,7 @@ void displayFiles(const char *userid, const int sortby)
 	  goto done_label;
 	}
 
-      if((files = (struct file_info *)
-	  malloc(ct * sizeof(struct file_info))) == 0)
+      if((files = malloc(ct * sizeof(struct file_info))) == 0)
 	{
 	  (void) closedir(dirp1);
 	  dirp1 = 0;
