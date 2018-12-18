@@ -46,6 +46,7 @@
 
 #define BUFF_SIZE 1024
 #define FALSE 0
+#define LARGE_BUFF_SIZE (3 * BUFF_SIZE)
 #define PERMISSIONS (S_IRWXU | S_IRWXG)
 #define TRUE 1
 
@@ -85,7 +86,7 @@ static void getRel(const char *, char *, const size_t);
 struct file_info
 {
   char dirname[_POSIX_PATH_MAX];
-  char location[BUFF_SIZE];
+  char location[LARGE_BUFF_SIZE];
   char shortname[_POSIX_PATH_MAX];
   int deleted;
   off_t size;
@@ -517,7 +518,7 @@ static void getRel(const char *fulldir, char *reldir, const size_t size)
   size_t idx = 0;
   size_t j = 0;
 
-  if(size <= 0)
+  if(size == 0)
     return;
 
   if(fulldir && strlen(fulldir) > 0)

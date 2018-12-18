@@ -14,7 +14,7 @@
 
 int main(int argc, char *argv[])
 {
-  char buffer[BUFF_SIZE];
+  char buffer[LARGE_BUFF_SIZE];
   char *tmp1 = 0;
   char tmp2[BUFF_SIZE];
   size_t i = 0;

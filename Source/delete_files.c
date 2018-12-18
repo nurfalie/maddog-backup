@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
   char dirname[BUFF_SIZE];
   char filename[BUFF_SIZE];
   char indata[65536];
-  char renamefrom[BUFF_SIZE];
-  char renameto[BUFF_SIZE];
+  char renamefrom[LARGE_BUFF_SIZE];
+  char renameto[LARGE_BUFF_SIZE];
   char *tmp = 0;
   int fnd = 0;
   size_t i = 0;
